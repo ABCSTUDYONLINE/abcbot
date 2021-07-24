@@ -221,7 +221,7 @@ let getMainMenuTemplate = () => {
                         {
                             "type": "web_url",
                             "title": "Website",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -346,7 +346,7 @@ let getCatWeb = () => {
                         {
                             "type": "web_url",
                             "title": "Truy cập web",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -471,7 +471,7 @@ let getCatMobile = () => {
                         {
                             "type": "web_url",
                             "title": "Truy cập web",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -569,7 +569,7 @@ let getDetailJavascript = () => {
                         {
                             "type": "web_url",
                             "title": "Đăng Ký",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -650,7 +650,7 @@ let getDetailReactJS = () => {
                         {
                             "type": "web_url",
                             "title": "Đăng Ký",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -731,7 +731,7 @@ let getDetailNodeJS = () => {
                         {
                             "type": "web_url",
                             "title": "Đăng Ký",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -812,7 +812,7 @@ let getDetailAndroid = () => {
                         {
                             "type": "web_url",
                             "title": "Đăng Ký",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -893,7 +893,7 @@ let getDetailReactNative = () => {
                         {
                             "type": "web_url",
                             "title": "Đăng Ký",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
@@ -974,7 +974,7 @@ let getDetailIOS = () => {
                         {
                             "type": "web_url",
                             "title": "Đăng Ký",
-                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "url": "https://abcchatbot.herokuapp.com/",
                             "webview_height_ratio": "full"
                         },
                         {
