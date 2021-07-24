@@ -345,8 +345,135 @@ let getCatWeb = () => {
     return response;
 }
 
+let handleSendCatMobile = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let response1 = getCatMobile();
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getCatMobile = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Android",
+                    "subtitle": "Các bài giảng về Android",
+                    "image_url": IMAGE_MOBILE_ANDROID,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_ANDROID",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "React Native",
+                    "subtitle": "Các bài giảng về React Native",
+                    "image_url": IMAGE_MOBILE_REACTNATIVE,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_REACT_NATIVE",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "IOS",
+                    "subtitle": "Các bài giảng về IOS",
+                    "image_url": IMAGE_MOBILE_IOS,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_IOS",
+                        },
+
+                    ],
+                },
+                /* {
+                    "title": "Flutter",
+                    "subtitle": "Các bài giảng về Flutter",
+                    "image_url": IMAGE_MOBILE_FLUTTER,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_FLUTTER",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "Kotlin",
+                    "subtitle": "Các bài giảng về Kotlin",
+                    "image_url": IMAGE_MOBILE_KOTLIN,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_KOTLIN",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "Swift",
+                    "subtitle": "Các bài giảng về Swift",
+                    "image_url": IMAGE_MOBILE_SWIFT,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_SWIFT",
+                        },
+
+                    ],
+                }, */
+                {
+                    "title": "Other",
+                    "subtitle": "",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "web_url",
+                            "title": "Truy cập web",
+                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Trở về",
+                            "payload": "BACK_CATALOG",
+                        }
+
+                    ],
+                }
+                ]
+            }
+        }
+    };
+    return response;
+}
+
 module.exports = {
     handleGetStarted: handleGetStarted,
     handleSendCatalog: handleSendCatalog,
     handleSendCatWeb: handleSendCatWeb,
+    handleSendCatMobile: handleSendCatMobile,
+
 }
