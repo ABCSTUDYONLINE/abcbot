@@ -1,6 +1,24 @@
 require('dotenv').config();
 import request from "request";
 
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
+const IMAGE_GET_STARTED = 'http://bit.ly/abcstudyonline';
+const IMAGE_WEB_JS = 'http://bit.ly/bot_javascript';
+const IMAGE_WEB_REACTJS = 'http://bit.ly/bot_reactjs';
+const IMAGE_WEB_NODEJS = 'http://bit.ly/bot_nodejs';
+/* const IMAGE_WEB_PHP = 'http://bit.ly/bot-php';
+const IMAGE_WEB_VUEJS = 'http://bit.ly/bot_vuejs';
+const IMAGE_WEB_ANGULAR = 'http://bit.ly/bot_angular'; */
+
+const IMAGE_MOBILE_ANDROID = 'http://bit.ly/bot_android';
+const IMAGE_MOBILE_REACTNATIVE = 'http://bit.ly/bot_reactnative';
+const IMAGE_MOBILE_IOS = 'http://bit.ly/bot-ios-1';
+/* const IMAGE_MOBILE_FLUTTER = 'http://bit.ly/bot_flutter';
+const IMAGE_MOBILE_KOTLIN = 'http://bit.ly/bot_kotlin';
+const IMAGE_MOBILE_SWIFT = 'http://bit.ly/bot_swift'; */
+
+
 let callSendAPI = async (sender_psid, response) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -155,6 +173,7 @@ let getStartedTemplate = () => {
     };
     return response;
 }
+
 let handleSendCatalog = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -980,9 +999,9 @@ module.exports = {
     handleSendCatMobile: handleSendCatMobile,
     handleBackCatalog: handleBackCatalog,
     handleBackMain: handleBackMain,
+    handleDetailJavascript: handleDetailJavascript,
     handleBackWeb: handleBackWeb,
     handleBackMobile: handleBackMobile,
-    handleDetailJavascript: handleDetailJavascript,
     handleDetailReactJS: handleDetailReactJS,
     handleDetailNodeJS: handleDetailNodeJS,
     handleDetailAndroid: handleDetailAndroid,

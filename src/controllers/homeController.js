@@ -1,10 +1,13 @@
 require('dotenv').config();
 import request from "request";
+import chatbotService from "../service/chatbotService";
 
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 let getHomePage = (req, res) => {
-    return res.render('homepage.ejs')
+    return res.render('homepage.ejs');
 };
+
 let postWebhook = (req, res) => {
     let body = req.body;
 
