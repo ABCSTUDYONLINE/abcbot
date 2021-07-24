@@ -220,7 +220,133 @@ let getMainMenuTemplate = () => {
     return response;
 }
 
+let handleSendCatWeb = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let response1 = getCatWeb();
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getCatWeb = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Javascript",
+                    "subtitle": "Các bài giảng về Javascript",
+                    "image_url": IMAGE_WEB_JS,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_JAVASCRIPT",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "ReactJS",
+                    "subtitle": "Các bài giảng về ReactJS",
+                    "image_url": IMAGE_WEB_REACTJS,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_REACTJS",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "NodeJS",
+                    "subtitle": "Các bài giảng về NodeJS",
+                    "image_url": IMAGE_WEB_NODEJS,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_NODEJS",
+                        },
+
+                    ],
+                },
+                /* {
+                    "title": "PHP",
+                    "subtitle": "Các bài giảng về PHP",
+                    "image_url": IMAGE_WEB_PHP,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_PHP",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "VueJS",
+                    "subtitle": "Các bài giảng về VueJS",
+                    "image_url": IMAGE_WEB_VUEJS,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_VUEJS",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "Angular",
+                    "subtitle": "Các bài giảng về Angular",
+                    "image_url": IMAGE_WEB_ANGULAR,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Xem chi tiết",
+                            "payload": "VIEW_ANGULAR",
+                        },
+
+                    ],
+                }, */
+                {
+                    "title": "Other",
+                    "subtitle": "",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "web_url",
+                            "title": "Truy cập web",
+                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Trở về",
+                            "payload": "BACK_CATALOG",
+                        }
+
+                    ],
+                }
+                ]
+            }
+        }
+    };
+    return response;
+}
+
 module.exports = {
     handleGetStarted: handleGetStarted,
     handleSendCatalog: handleSendCatalog,
+    handleSendCatWeb: handleSendCatWeb,
 }
