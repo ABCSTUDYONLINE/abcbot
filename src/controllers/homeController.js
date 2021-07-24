@@ -259,18 +259,6 @@ let setupPersistentMenu = async (req, res) => {
                         "payload": "COURSE_CATALOG"
                     },
                     {
-                        "type": "web_url",
-                        "title": "Facebook Page",
-                        "url": "https://www.facebook.com/ABC-Study-Online-101052528872104",
-                        "webview_height_ratio": "full"
-                    },
-                    {
-                        "type": "web_url",
-                        "title": "Truy cập Website",
-                        "url": "https://demo-bot-chat.herokuapp.com/",
-                        "webview_height_ratio": "full"
-                    },
-                    {
                         "type": "postback",
                         "title": "Khởi động lại bot",
                         "payload": "BOT_RESTART"
