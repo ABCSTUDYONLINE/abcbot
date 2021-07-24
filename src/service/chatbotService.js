@@ -470,10 +470,30 @@ let getCatMobile = () => {
     return response;
 }
 
+let handleBackCatalog = async (sender_psid) => {
+    await handleSendCatalog(sender_psid);
+}
+
+let handleBackMain = async (sender_psid) => {
+    let response2 = getStartedTemplate();
+    await callSendAPI(sender_psid, response2);
+}
+let handleBackWeb = async (sender_psid) => {
+    await handleSendCatWeb(sender_psid);
+}
+
+let handleBackMobile = async (sender_psid) => {
+    await handleSendCatMobile(sender_psid);
+}
+
 module.exports = {
     handleGetStarted: handleGetStarted,
     handleSendCatalog: handleSendCatalog,
     handleSendCatWeb: handleSendCatWeb,
     handleSendCatMobile: handleSendCatMobile,
+    handleBackCatalog: handleBackCatalog,
+    handleBackMain: handleBackMain,
+    handleBackWeb: handleBackWeb,
+    handleBackMobile: handleBackMobile,
 
 }
