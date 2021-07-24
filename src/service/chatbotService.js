@@ -486,6 +486,88 @@ let handleBackMobile = async (sender_psid) => {
     await handleSendCatMobile(sender_psid);
 }
 
+let handleDetailJavascript = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let response1 = getDetailJavascript();
+            await callSendAPI(sender_psid, response1);
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getDetailJavascript = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Tutorial 1",
+                    "subtitle": "Setup môi trường và cài đặt",
+                    "image_url": IMAGE_WEB_JS,
+
+                },
+                {
+                    "title": "Tutorial 2",
+                    "subtitle": "Khái niệm 1 và thực hành 1",
+                    "image_url": IMAGE_WEB_JS,
+
+                },
+                {
+                    "title": "Tutorial 3",
+                    "subtitle": "Khái niệm 2 và thực hành 2",
+                    "image_url": IMAGE_WEB_JS,
+
+                },
+                {
+                    "title": "Tutorial 4",
+                    "subtitle": "Khái niệm 3 và thực hành 3",
+                    "image_url": IMAGE_WEB_JS,
+
+                },
+                {
+                    "title": "Tutorial 5",
+                    "subtitle": "Khái niệm 4 và thực hành 4",
+                    "image_url": IMAGE_WEB_JS,
+
+                },
+                {
+                    "title": "Tutorial 6",
+                    "subtitle": "Khái niệm 5 và thực hành 5",
+                    "image_url": IMAGE_WEB_JS,
+
+                },
+                {
+                    "title": "Đăng ký",
+                    "subtitle": "Giá: 1.500.000VND",
+                    "image_url": IMAGE_WEB_JS,
+                    "buttons": [
+                        {
+                            "type": "web_url",
+                            "title": "Đăng Ký",
+                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Trở về",
+                            "payload": "BACK_WEB",
+                        },
+
+                    ],
+                }
+                ]
+            }
+        }
+    };
+    return response;
+}
+
 module.exports = {
     handleGetStarted: handleGetStarted,
     handleSendCatalog: handleSendCatalog,
@@ -495,5 +577,6 @@ module.exports = {
     handleBackMain: handleBackMain,
     handleBackWeb: handleBackWeb,
     handleBackMobile: handleBackMobile,
+    handleDetailJavascript: handleDetailJavascript,
 
 }
