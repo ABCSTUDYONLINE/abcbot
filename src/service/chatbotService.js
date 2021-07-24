@@ -155,7 +155,72 @@ let getStartedTemplate = () => {
     };
     return response;
 }
+let handleSendCatalog = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let response1 = getMainMenuTemplate();
+            await callSendAPI(sender_psid, response1);
+
+
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getMainMenuTemplate = () => {
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "CATALOG SOURSE",
+                    "subtitle": "Danh mục khóa học tại ABC Study Online",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Learn Web",
+                            "payload": "LEARN_WEB",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Learn Mobile",
+                            "payload": "LEARN_MOBILE",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "WEBSITE",
+                    "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "web_url",
+                            "title": "Website",
+                            "url": "https://demo-bot-chat.herokuapp.com/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Trở về",
+                            "payload": "BACK_MAIN",
+                        }
+
+                    ],
+                }
+                ]
+            }
+        }
+    };
+    return response;
+}
 
 module.exports = {
     handleGetStarted: handleGetStarted,
+    handleSendCatalog: handleSendCatalog,
 }
