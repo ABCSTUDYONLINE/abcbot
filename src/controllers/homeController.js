@@ -211,8 +211,93 @@ function callSendAPI(sender_psid, response) {
         }
     });
 }
+
+let setupProfile = async (req, res) => {
+    //call profile facebook api
+    // Construct the message body
+    let request_body = {
+        "get_started": { "payload": "GET_STARTED" },
+        "whitelisted_domains": ["https://demo-bot-chat.herokuapp.com/"]
+    }
+
+    // Send the HTTP request to the Messenger Platform
+    await request({
+        "uri": `https://graph.facebook.com/v10.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+        console.log(body);
+        if (!err) {
+            console.log('setup profile succeeds!')
+        } else {
+            console.error("Unable to setup profile:" + err);
+        }
+    });
+
+    return res.send("Setup profile succeed!");
+};
+
+let setupPersistentMenu = async (req, res) => {
+    let request_body = {
+        "persistent_menu": [
+            {
+                "locale": "default",
+                "composer_input_disabled": false,
+                "call_to_actions": [
+                    {
+                        "type": "postback",
+                        "title": "Tìm kiếm",
+                        "payload": "COURSE_SEARCH"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Menu Khóa Học",
+                        "payload": "COURSE_CATALOG"
+                    },
+                    {
+                        "type": "web_url",
+                        "title": "Facebook Page",
+                        "url": "https://www.facebook.com/ABC-Study-Online-101052528872104",
+                        "webview_height_ratio": "full"
+                    },
+                    {
+                        "type": "web_url",
+                        "title": "Truy cập Website",
+                        "url": "https://demo-bot-chat.herokuapp.com/",
+                        "webview_height_ratio": "full"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Khởi động lại bot",
+                        "payload": "BOT_RESTART"
+                    }
+                ]
+            }
+        ]
+    }
+
+    // Send the HTTP request to the Messenger Platform
+    await request({
+        "uri": `https://graph.facebook.com/v10.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+        console.log(body);
+        if (!err) {
+            console.log('setup persistent menu succeeds!')
+        } else {
+            console.error("Unable to setup persistent menu:" + err);
+        }
+    });
+
+    return res.send("Setup profile succeed!");
+};
 module.exports = {
     getHomePage: getHomePage,
     postWebhook: postWebhook,
     getWebhook: getWebhook,
+    setupProfile: setupProfile,
+    setupPersistentMenu: setupPersistentMenu,
 }
