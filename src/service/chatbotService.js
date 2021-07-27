@@ -1,5 +1,7 @@
 require('dotenv').config();
 import request from "request";
+import axios from "axios";
+import Api from './api';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
@@ -189,7 +191,12 @@ let handleSendCatalog = (sender_psid) => {
     })
 }
 
-let getMainMenuTemplate = () => {
+const getMainMenuTemplate = () => {
+    console.log("checck")
+    const getData = () => {
+        return API.get('/categories?page=1&limit=7').then(res => res.data);
+    };
+    getData();
     let response = {
         "attachment": {
             "type": "template",
@@ -213,7 +220,25 @@ let getMainMenuTemplate = () => {
 
                     ],
                 },
-                
+                {
+                    "title": "WEBSITE",
+                    "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "web_url",
+                            "title": "Website",
+                            "url": "https://abcchatbot.herokuapp.com/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Trở về",
+                            "payload": "BACK_MAIN",
+                        }
+
+                    ],
+                }
                 ]
             }
         }
