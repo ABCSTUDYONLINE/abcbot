@@ -177,6 +177,7 @@ let getStartedTemplate = () => {
 }
 
 let handleSendCatalog = (sender_psid) => {
+    console.log("111111111111111111")
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -192,7 +193,6 @@ let handleSendCatalog = (sender_psid) => {
 }
 
 const getMainMenuTemplate = () => {
-    console.log("checck")
     // const getData = () => {
     //     return API.get('/categories?page=1&limit=7').then(res => res.data);
     // };
