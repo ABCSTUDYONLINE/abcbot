@@ -1,6 +1,5 @@
 require('dotenv').config();
 import request from "request";
-import axios from "axios";
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
@@ -191,66 +190,53 @@ let handleSendCatalog = (sender_psid) => {
 }
 
 let getMainMenuTemplate = () => {
-    axios({
-        method: 'get',
-        url: 'https://abcstudyonline.herokuapp.com/categories',
-        data: {
-            page:"1",
-            limit:"7",
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "CATALOG SOURSE",
+                    "subtitle": "Danh mục khóa học tại ABC Study Online",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Learn Web",
+                            "payload": "LEARN_WEB",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Learn Mobile",
+                            "payload": "LEARN_MOBILE",
+                        },
+
+                    ],
+                },
+                {
+                    "title": "WEBSITE",
+                    "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "web_url",
+                            "title": "Website",
+                            "url": "https://abcchatbot.herokuapp.com/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Trở về",
+                            "payload": "BACK_MAIN",
+                        }
+
+                    ],
+                }
+                ]
+            }
         }
-    }).then(res => {
-        console.log(res);
-    }).catch(err => {
-        consle.log(err);
-    });
-    
-    // let response = {
-    //     "attachment": {
-    //         "type": "template",
-    //         "payload": {
-    //             "template_type": "generic",
-    //             "elements": [{
-    //                 "title": "CATALOG SOURSE",
-    //                 "subtitle": "Danh mục khóa học tại ABC Study Online",
-    //                 "image_url": IMAGE_GET_STARTED,
-    //                 "buttons": [
-    //                     {
-    //                         "type": "postback",
-    //                         "title": "Learn Web",
-    //                         "payload": "LEARN_WEB",
-    //                     },
-    //                     {
-    //                         "type": "postback",
-    //                         "title": "Learn Mobile",
-    //                         "payload": "LEARN_MOBILE",
-    //                     },
-
-    //                 ],
-    //             },
-    //             {
-    //                 "title": "WEBSITE",
-    //                 "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-    //                 "image_url": IMAGE_GET_STARTED,
-    //                 "buttons": [
-    //                     {
-    //                         "type": "web_url",
-    //                         "title": "Website",
-    //                         "url": "https://abcchatbot.herokuapp.com/",
-    //                         "webview_height_ratio": "full"
-    //                     },
-    //                     {
-    //                         "type": "postback",
-    //                         "title": "Trở về",
-    //                         "payload": "BACK_MAIN",
-    //                     }
-
-    //                 ],
-    //             }
-    //             ]
-    //         }
-    //     }
-    // };
-    // return response;
+    };
+    return response;
 }
 
 let handleSendCatWeb = (sender_psid) => {
