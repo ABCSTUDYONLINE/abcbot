@@ -193,10 +193,10 @@ let handleSendCatalog = (sender_psid) => {
 
 const getMainMenuTemplate = () => {
     console.log("checck")
-    const getData = () => {
-        return API.get('/categories?page=1&limit=7').then(res => res.data);
-    };
-    getData();
+    // const getData = () => {
+    //     return API.get('/categories?page=1&limit=7').then(res => res.data);
+    // };
+    // getData();
     let response = {
         "attachment": {
             "type": "template",
