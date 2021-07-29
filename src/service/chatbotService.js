@@ -192,7 +192,7 @@ let handleSendCatalog = (sender_psid) => {
 
 const getMainMenuTemplate = async () => {
     const res = await getCategories(1,7);
-    console.log(res);
+    console.log(res.data);
     let response = {
         "attachment": {
             "type": "template",
