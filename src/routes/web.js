@@ -15,7 +15,7 @@ let initWebRoutes = (app) => {
     router.get('/webhook', homeController.getWebhook);
     router.get('/test', async (req, res) => {
         const data = await getCategories(1,7);
-        return res.json(data);
+        return res.json(data.data);
     })
 
     return app.use('/', router);
