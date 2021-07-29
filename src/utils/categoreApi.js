@@ -8,7 +8,7 @@ const postCategories = (params) => {
     return API.post('/categories', params).then(res => res.data);
 };
 
-export default {
+export {
     getCategories,
     postCategories,
 }

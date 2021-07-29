@@ -1,5 +1,6 @@
 import express from "express";
 import homeController from "../controllers/homeController";
+import {getCategories} from '../utils/categoreApi';
 
 let router = express.Router();
 let initWebRoutes = (app) => {
@@ -12,6 +13,10 @@ let initWebRoutes = (app) => {
     router.post('/setup-persistent-menu', homeController.setupPersistentMenu);
     router.post('/webhook', homeController.postWebhook);
     router.get('/webhook', homeController.getWebhook);
+    router.get('/test', async (req, res) => {
+        const data = await getCategories(1,7);
+        return res.json(data);
+    })
 
     return app.use('/', router);
 };
