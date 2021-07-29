@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Api = axios.create({
+const API = axios.create({
   baseURL: 'https://abcstudyonline.herokuapp.com',
   withCredentials: false,
   headers: {
@@ -9,4 +9,4 @@ const Api = axios.create({
   },
 });
 
-export default Api;
+export default API;

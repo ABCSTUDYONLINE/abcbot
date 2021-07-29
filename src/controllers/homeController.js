@@ -138,7 +138,6 @@ async function handlePostback(sender_psid, received_postback) {
             break;
 
         case 'COURSE_CATALOG':
-            console.log("222222222");
             await chatbotService.handleSendCatalog(sender_psid);
             break;
 

@@ -1,7 +1,6 @@
 require('dotenv').config();
 import request from "request";
-import axios from "axios";
-import Api from './api';
+
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
@@ -177,7 +176,6 @@ let getStartedTemplate = () => {
 }
 
 let handleSendCatalog = (sender_psid) => {
-    console.log("111111111111111111")
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -193,10 +191,6 @@ let handleSendCatalog = (sender_psid) => {
 }
 
 const getMainMenuTemplate = () => {
-    // const getData = () => {
-    //     return API.get('/categories?page=1&limit=7').then(res => res.data);
-    // };
-    // getData();
     let response = {
         "attachment": {
             "type": "template",
