@@ -1,8 +1,8 @@
 require('dotenv').config();
 import request from "request";
 import chatbotService from "../service/chatbotService";
-import {getCategories} from '../utils/categoreApi';
-import {getCourses,findCourses} from '../utils/courseApi';
+// import {getCategories} from '../utils/categoreApi';
+// import {getCourses,findCourses} from '../utils/courseApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
@@ -119,7 +119,8 @@ function handleMessage(sender_psid, received_message) {
 
 // Handles messaging_postbacks events
 async function handlePostback(sender_psid, received_postback) {
-    const res = await getCategories(1,7);
+    // const res = await getCategories(1,7);
+    // const datas = res.data.list;
     let response;
 
     // Get the payload for the postback
@@ -144,7 +145,7 @@ async function handlePostback(sender_psid, received_postback) {
             await chatbotService.handleSendCatalog(sender_psid);
             break;
 
-        case 'CATALOG_'+`${res.data.list[index].id}`:
+        case 'LEARN_WEB':
             await chatbotService.handleSendCatWeb(sender_psid);
             break;
 
