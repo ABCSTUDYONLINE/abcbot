@@ -194,7 +194,7 @@ const handleSendCatalog = (sender_psid) => {
 
 const getMainMenuTemplate = async () => {
     const res = await getCategories(1,7);
-    console.log(res.data.list);
+    // console.log(res.data.list);
     let response = {
         "attachment": {
             "type": "template",
@@ -207,8 +207,8 @@ const getMainMenuTemplate = async () => {
                     "buttons": [
                         res.map((data,index) => ({
                             "type": "postback",
-                            "title": `${data.list[index].levelCategory}`,
-                            "payload": "CATALOG"+`${data.list[index].id}`,
+                            "title": `${res.data.list[index].levelCategory}`,
+                            "payload": "CATALOG"+`${res.data.list[index].id}`,
                         })),
                         // {
                         //     "type": "postback",
