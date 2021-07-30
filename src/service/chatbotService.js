@@ -193,8 +193,9 @@ const handleSendCatalog = (sender_psid) => {
 }
 
 const getMainMenuTemplate = async () => {
-    const datas = await getCategories(1,7);
+    const res = await getCategories(1,7);
     // console.log(res.data.list);
+    const datas = res.data.list
     let response = {
         "attachment": {
             "type": "template",
@@ -205,10 +206,10 @@ const getMainMenuTemplate = async () => {
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
                     "buttons": [
-                        datas.map((data,index) => ({
+                        datas.map((data) => ({
                             "type": "postback",
-                            "title": `${data.list[index].levelCategory}`,
-                            "payload": "CATALOG"+`${data.list[index].id}`,
+                            "title": `${data[index].levelCategory}`,
+                            "payload": "CATALOG_"+`${data[index].id}`,
                         })),
                         // {
                         //     "type": "postback",

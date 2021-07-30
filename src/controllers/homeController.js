@@ -144,7 +144,7 @@ async function handlePostback(sender_psid, received_postback) {
             await chatbotService.handleSendCatalog(sender_psid);
             break;
 
-        case 'CATALOG'+`${res.data.list[index].id}`:
+        case 'CATALOG_'+`${res.data.list[index].id}`:
             await chatbotService.handleSendCatWeb(sender_psid);
             break;
 
