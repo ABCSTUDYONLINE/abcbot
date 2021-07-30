@@ -1,9 +1,10 @@
 import express from "express";
 import homeController from "../controllers/homeController";
 import {getCategories} from '../utils/categoreApi';
+import {getCourses} from '../utils/courseApi';
 
-let router = express.Router();
-let initWebRoutes = (app) => {
+const router = express.Router();
+const initWebRoutes = (app) => {
 
     router.get("/", homeController.getHomePage);
 
@@ -15,7 +16,8 @@ let initWebRoutes = (app) => {
     router.get('/webhook', homeController.getWebhook);
     router.get('/test', async (req, res) => {
         const data = await getCategories(1,7);
-        return res.json(data.data);
+        // const data = await getCourses(0,1,7)
+        return res.json(data.data.list);
     })
 
     return app.use('/', router);

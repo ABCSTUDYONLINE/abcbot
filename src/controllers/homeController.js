@@ -1,14 +1,16 @@
 require('dotenv').config();
 import request from "request";
 import chatbotService from "../service/chatbotService";
+import {getCategories} from '../utils/categoreApi';
+import {getCourses,findCourses} from '../utils/courseApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-let getHomePage = (req, res) => {
+const getHomePage = (req, res) => {
     return res.render('homepage.ejs');
 };
 
-let postWebhook = (req, res) => {
+const postWebhook = (req, res) => {
     let body = req.body;
 
     // Checks this is an event from a page subscription
@@ -44,7 +46,7 @@ let postWebhook = (req, res) => {
     }
 };
 
-let getWebhook = (req, res) => {
+const getWebhook = (req, res) => {
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -117,6 +119,7 @@ function handleMessage(sender_psid, received_message) {
 
 // Handles messaging_postbacks events
 async function handlePostback(sender_psid, received_postback) {
+    const res = await getCategories(1,7);
     let response;
 
     // Get the payload for the postback
@@ -124,13 +127,13 @@ async function handlePostback(sender_psid, received_postback) {
 
     // Set the response based on the postback payload
     switch (payload) {
-        case 'yes':
-            response = { "text": "Thanks!" }
-            break;
+        // case 'yes':
+        //     response = { "text": "Thanks!" }
+        //     break;
 
-        case 'no':
-            response = { "text": "Oops, try sending another image." }
-            break;
+        // case 'no':
+        //     response = { "text": "Oops, try sending another image." }
+        //     break;
 
         case 'BOT_RESTART':
         case 'GET_STARTED':
@@ -141,7 +144,7 @@ async function handlePostback(sender_psid, received_postback) {
             await chatbotService.handleSendCatalog(sender_psid);
             break;
 
-        case 'LEARN_WEB':
+        case 'CATALOG'+`${res.data.list[index].id}`:
             await chatbotService.handleSendCatWeb(sender_psid);
             break;
 
@@ -215,12 +218,12 @@ function callSendAPI(sender_psid, response) {
     });
 }
 
-let setupProfile = async (req, res) => {
+const setupProfile = async (req, res) => {
     //call profile facebook api
     // Construct the message body
     let request_body = {
         "get_started": { "payload": "GET_STARTED" },
-        "whitelisted_domains": ["https://demo-bot-chat.herokuapp.com/"]
+        "whitelisted_domains": ["https://abcchatbot.herokuapp.com/"]
     }
 
     // Send the HTTP request to the Messenger Platform
@@ -241,7 +244,7 @@ let setupProfile = async (req, res) => {
     return res.send("Setup profile succeed!");
 };
 
-let setupPersistentMenu = async (req, res) => {
+const setupPersistentMenu = async (req, res) => {
     let request_body = {
         "persistent_menu": [
             {
@@ -250,12 +253,12 @@ let setupPersistentMenu = async (req, res) => {
                 "call_to_actions": [
                     {
                         "type": "postback",
-                        "title": "Tìm kiếm",
+                        "title": "Tìm kiếm khóa học",
                         "payload": "COURSE_SEARCH"
                     },
                     {
                         "type": "postback",
-                        "title": "Menu Khóa Học",
+                        "title": "Danh mục Khóa Học",
                         "payload": "COURSE_CATALOG"
                     },
                     {

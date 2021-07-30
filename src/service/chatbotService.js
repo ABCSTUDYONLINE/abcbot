@@ -1,6 +1,7 @@
 require('dotenv').config();
 import request from "request";
-import {getCategories} from '../utils/categoreApi'
+import {getCategories} from '../utils/categoreApi';
+import {getCourses,findCourses} from '../utils/courseApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
@@ -20,7 +21,7 @@ const IMAGE_MOBILE_KOTLIN = 'http://bit.ly/bot_kotlin';
 const IMAGE_MOBILE_SWIFT = 'http://bit.ly/bot_swift'; */
 
 
-let callSendAPI = async (sender_psid, response) => {
+const callSendAPI = async (sender_psid, response) => {
     return new Promise(async (resolve, reject) => {
         try {
             // Construct the message body
@@ -58,7 +59,7 @@ let callSendAPI = async (sender_psid, response) => {
 
 }
 
-let sendTypingon = (sender_psid) => {
+const sendTypingon = (sender_psid) => {
     // Construct the message body
     let request_body = {
         "recipient": {
@@ -82,7 +83,7 @@ let sendTypingon = (sender_psid) => {
     });
 }
 
-let MarkMessage = (sender_psid) => {
+const MarkMessage = (sender_psid) => {
     // Construct the message body
     let request_body = {
         "recipient": {
@@ -106,7 +107,7 @@ let MarkMessage = (sender_psid) => {
     });
 }
 
-let getUserName = (sender_psid) => {
+const getUserName = (sender_psid) => {
 
     return new Promise((resolve, reject) => {
         request({
@@ -125,7 +126,7 @@ let getUserName = (sender_psid) => {
     })
 }
 
-let handleGetStarted = (sender_psid) => {
+const handleGetStarted = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let username = await getUserName(sender_psid);
@@ -146,25 +147,25 @@ let handleGetStarted = (sender_psid) => {
     })
 }
 
-let getStartedTemplate = () => {
+const getStartedTemplate = () => {
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "ABC STUDY ONLINE",
+                    "title": "ABCSTUDY ONLINE",
                     "subtitle": "Dưới đây là các option",
                     "image_url": IMAGE_GET_STARTED,
                     "buttons": [
                         {
                             "type": "postback",
-                            "title": "Tìm kiếm",
+                            "title": "Tìm kiếm khóa học",
                             "payload": "COURSE_SEARCH",
                         },
                         {
                             "type": "postback",
-                            "title": "Menu Khóa Học",
+                            "title": "Danh mục Khóa Học",
                             "payload": "COURSE_CATALOG",
                         }
                     ],
@@ -175,7 +176,8 @@ let getStartedTemplate = () => {
     return response;
 }
 
-let handleSendCatalog = (sender_psid) => {
+
+const handleSendCatalog = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -192,7 +194,7 @@ let handleSendCatalog = (sender_psid) => {
 
 const getMainMenuTemplate = async () => {
     const res = await getCategories(1,7);
-    console.log(res.data);
+    console.log(res.data.list);
     let response = {
         "attachment": {
             "type": "template",
@@ -203,16 +205,16 @@ const getMainMenuTemplate = async () => {
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
                     "buttons": [
-                        {
+                        res.map((data,index) => ({
                             "type": "postback",
-                            "title": "Learn Web",
-                            "payload": "LEARN_WEB",
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Learn Mobile",
-                            "payload": "LEARN_MOBILE",
-                        },
+                            "title": `${data.list[index].levelCategory}`,
+                            "payload": "CATALOG"+`${data.list[index].id}`,
+                        })),
+                        // {
+                        //     "type": "postback",
+                        //     "title": "Learn Mobile",
+                        //     "payload": "LEARN_MOBILE",
+                        // },
 
                     ],
                 },
@@ -242,7 +244,7 @@ const getMainMenuTemplate = async () => {
     return response;
 }
 
-let handleSendCatWeb = (sender_psid) => {
+const handleSendCatWeb = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -257,7 +259,7 @@ let handleSendCatWeb = (sender_psid) => {
     })
 }
 
-let getCatWeb = () => {
+const getCatWeb = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -367,7 +369,7 @@ let getCatWeb = () => {
     return response;
 }
 
-let handleSendCatMobile = (sender_psid) => {
+const handleSendCatMobile = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -382,7 +384,7 @@ let handleSendCatMobile = (sender_psid) => {
     })
 }
 
-let getCatMobile = () => {
+const getCatMobile = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -492,23 +494,23 @@ let getCatMobile = () => {
     return response;
 }
 
-let handleBackCatalog = async (sender_psid) => {
+const handleBackCatalog = async (sender_psid) => {
     await handleSendCatalog(sender_psid);
 }
 
-let handleBackMain = async (sender_psid) => {
+const handleBackMain = async (sender_psid) => {
     let response2 = getStartedTemplate();
     await callSendAPI(sender_psid, response2);
 }
-let handleBackWeb = async (sender_psid) => {
+const handleBackWeb = async (sender_psid) => {
     await handleSendCatWeb(sender_psid);
 }
 
-let handleBackMobile = async (sender_psid) => {
+const handleBackMobile = async (sender_psid) => {
     await handleSendCatMobile(sender_psid);
 }
 
-let handleDetailJavascript = (sender_psid) => {
+const handleDetailJavascript = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -522,7 +524,7 @@ let handleDetailJavascript = (sender_psid) => {
     })
 }
 
-let getDetailJavascript = () => {
+const getDetailJavascript = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -590,7 +592,7 @@ let getDetailJavascript = () => {
     return response;
 }
 
-let handleDetailReactJS = (sender_psid) => {
+const handleDetailReactJS = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -603,7 +605,7 @@ let handleDetailReactJS = (sender_psid) => {
         }
     })
 }
-let getDetailReactJS = () => {
+const getDetailReactJS = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -671,7 +673,7 @@ let getDetailReactJS = () => {
     return response;
 }
 
-let handleDetailNodeJS = (sender_psid) => {
+const handleDetailNodeJS = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -684,7 +686,7 @@ let handleDetailNodeJS = (sender_psid) => {
         }
     })
 }
-let getDetailNodeJS = () => {
+const getDetailNodeJS = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -752,7 +754,7 @@ let getDetailNodeJS = () => {
     return response;
 }
 
-let handleDetailAndroid = (sender_psid) => {
+const handleDetailAndroid = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -765,7 +767,7 @@ let handleDetailAndroid = (sender_psid) => {
         }
     })
 }
-let getDetailAndroid = () => {
+const getDetailAndroid = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -833,7 +835,7 @@ let getDetailAndroid = () => {
     return response;
 }
 
-let handleDetailReactNative = (sender_psid) => {
+const handleDetailReactNative = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -846,7 +848,7 @@ let handleDetailReactNative = (sender_psid) => {
         }
     })
 }
-let getDetailReactNative = () => {
+const getDetailReactNative = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -914,7 +916,7 @@ let getDetailReactNative = () => {
     return response;
 }
 
-let handleDetailIOS = (sender_psid) => {
+const handleDetailIOS = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -927,7 +929,7 @@ let handleDetailIOS = (sender_psid) => {
         }
     })
 }
-let getDetailIOS = () => {
+const getDetailIOS = () => {
     let response = {
         "attachment": {
             "type": "template",
