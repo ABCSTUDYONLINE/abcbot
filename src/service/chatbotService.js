@@ -229,9 +229,9 @@ const dataCategory = async () => {
 
 const getMainMenuTemplate = async () => {
     const result1 = await dataCategory();
-    
+    console.log("----------");
     console.log(result1);
-    console.log(typeof (result1));
+    console.log(typeof(result1));
     let response = {
         "attachment": {
             "type": "template",
