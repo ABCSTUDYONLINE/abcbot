@@ -232,25 +232,25 @@ const getMainMenuTemplate = async () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": catalog.map( (data) => {
-                        return {
+                    "buttons": 
+                    // catalog.map( (data) => {
+                    //     return {
+                    //         "type": "postback",
+                    //         "title": data.levelCategory,
+                    //         "payload": "LEARN_"+`${data.levelCategory}`
+                    //     }
+                    // })
+                       [ {
                             "type": "postback",
-                            "title": data.levelCategory,
-                            "payload": "LEARN_"+`${data.levelCategory}`
-                        }
-                    })
-                        // {
-                        //     "type": "postback",
-                        //     "title": "Learn Web",
-                        //     "payload": "LEARN_WEB",
-                        // },
-                        // {
-                        //     "type": "postback",
-                        //     "title": "Learn Mobile",
-                        //     "payload": "LEARN_MOBILE",
-                        // },
-
-                    ,
+                            "title": "Learn Web",
+                            "payload": "LEARN_WEB",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Learn Mobile",
+                            "payload": "LEARN_MOBILE",
+                        },
+                        ],
                 },
                 {
                     "title": "WEBSITE",
