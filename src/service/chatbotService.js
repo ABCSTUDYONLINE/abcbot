@@ -235,11 +235,6 @@ const getMainMenuTemplate = () => {
             "title": "Learn Web",
             "payload": "LEARN_WEB",
         },
-        {
-            "type": "postback",
-            "title": "Learn Mobile",
-            "payload": "LEARN_MOBILE",
-        },
     ]
     const result1 = dataCategory();
 
