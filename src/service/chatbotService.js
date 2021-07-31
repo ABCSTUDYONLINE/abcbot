@@ -207,28 +207,28 @@ function Catalog(arr) {
 const dataCategory = async () => {
     try {
         const res = await getCategories(1,7);
-    // console.log(res.data.list);
-    const datas = res.data.list;
-    // console.log(datas)
+        // console.log(res.data.list);
+        const datas = res.data.list;
+        // console.log(datas)
 
-    const catalog = Catalog(datas);
-    // console.log(catalog);
-    const result = catalog.map( (data,index) => {
-        return {
-            type: "postback",
-            title: data.levelCategory,
-            payload: "LEARN_"+`${data.levelCategory}`
-        }
-    });
-    return result;
+        const catalog = Catalog(datas);
+        // console.log(catalog);
+        const result = catalog.map( (data,index) => {
+            return {
+                type: "postback",
+                title: data.levelCategory,
+                payload: "LEARN_"+`${data.levelCategory}`
+            }
+        });
+        return result;
     } catch (error) {
         console.log(error);
     }
     
 }
 
-const getMainMenuTemplate = () => {
-    const result1 = dataCategory();
+const getMainMenuTemplate = async () => {
+    const result1 = await dataCategory();
     
     console.log(result1);
     console.log(typeof (result1));
