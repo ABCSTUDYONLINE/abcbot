@@ -220,7 +220,7 @@ const getMainMenuTemplate = async () => {
         }
     });
     
-    // // console.log(result);
+    console.log(result);
     let response = {
         "attachment": {
             "type": "template",
