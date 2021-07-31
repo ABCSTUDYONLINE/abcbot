@@ -246,43 +246,48 @@ const getMainMenuTemplate = () => {
         });
         console.log("AAAAAAAAAAAAA");
         console.log(result);
-        let response = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "CATALOG SOURSE",
-                        "subtitle": "Danh mục khóa học tại ABC Study Online",
-                        "image_url": IMAGE_GET_STARTED,
-                        "buttons": result,
-                    },
-                    {
-                        "title": "WEBSITE",
-                        "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-                        "image_url": IMAGE_GET_STARTED,
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "title": "Website",
-                                "url": "https://abcchatbot.herokuapp.com/",
-                                "webview_height_ratio": "full"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Trở về",
-                                "payload": "BACK_MAIN",
-                            }
-    
-                        ],
+        return result;
+        
+    }).then(
+        (result) => {
+            let response = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [{
+                            "title": "CATALOG SOURSE",
+                            "subtitle": "Danh mục khóa học tại ABC Study Online",
+                            "image_url": IMAGE_GET_STARTED,
+                            "buttons": result,
+                        },
+                        {
+                            "title": "WEBSITE",
+                            "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+                            "image_url": IMAGE_GET_STARTED,
+                            "buttons": [
+                                {
+                                    "type": "web_url",
+                                    "title": "Website",
+                                    "url": "https://abcchatbot.herokuapp.com/",
+                                    "webview_height_ratio": "full"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Trở về",
+                                    "payload": "BACK_MAIN",
+                                }
+        
+                            ],
+                        }
+                        ]
                     }
-                    ]
                 }
-            }
-        };
-        // console.log(response);
-        return response;
-    }).
+            };
+            // console.log(response);
+            return response;
+        }
+    ).
     catch(err => console.log(err));
     
     // let Arr = [
