@@ -204,21 +204,21 @@ function Catalog(arr) {
     return newArr
 }
 
-const getMainMenuTemplate = async () => {
-    const res = await getCategories(1,7);
+const getMainMenuTemplate =  () => {
+    // const res = await getCategories(1,7);
     // // console.log(res.data.list);
-    const datas = res.data.list;
+    // const datas = res.data.list;
     // // console.log(datas)
 
-    const catalog = Catalog(datas);
+    // const catalog = Catalog(datas);
     // // console.log(catalog);
-    const result = catalog.map( (data,index) => {
-        return {
-            "type": "postback",
-            "title": data.levelCategory,
-            "payload": "LEARN_"+`${data.levelCategory}`
-        }
-    });
+    // const result = catalog.map( (data,index) => {
+    //     return {
+    //         "type": "postback",
+    //         "title": data.levelCategory,
+    //         "payload": "LEARN_"+`${data.levelCategory}`
+    //     }
+    // });
     const result1=[
         {
             "type": "postback",
