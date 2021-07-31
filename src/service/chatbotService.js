@@ -236,7 +236,13 @@ const getMainMenuTemplate = () => {
         console.log("----------");
         console.log(res)
         console.log("AAAAAAAAAAAAA");
-        const result = res.data.list;
+        const result = res.data.list.map( (data,index) => {
+            return {
+                type: "postback",
+                title: data.levelCategory,
+                payload: "LEARN_"+`${data.levelCategory}`
+            }
+        });;
         let response = {
             "attachment": {
                 "type": "template",
