@@ -230,7 +230,6 @@ const getMainMenuTemplate = async () => {
             "title": "Learn Mobile",
             "payload": "LEARN_MOBILE",
         },
-
     ]
     // // console.log(result);
     let response = {
@@ -242,7 +241,7 @@ const getMainMenuTemplate = async () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": result1,
+                    "buttons": `${result1}`,
                 },
                 {
                     "title": "WEBSITE",
