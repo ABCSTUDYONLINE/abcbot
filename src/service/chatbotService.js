@@ -232,20 +232,20 @@ const getMainMenuTemplate = async () => {
     let Arr = [
         {
             "type": "postback",
-            "title": "Trở về",
-            "payload": "LEAN_WEB",
+            "title": "Learn Web",
+            "payload": "LEARN_WEB",
         },
         {
             "type": "postback",
-            "title": "Trở về",
-            "payload": "BACK",
-        }
+            "title": "Learn Mobile",
+            "payload": "LEARN_MOBILE",
+        },
     ]
-    const result1 = await dataCategory();
+    // const result1 = await dataCategory();
 
-    // Arr = [...result1]
-    console.log("----------");
-    console.log(result1);
+    // // Arr = [...result1]
+    // console.log("----------");
+    // console.log(result1);
     let response = {
         "attachment": {
             "type": "template",
