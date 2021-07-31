@@ -231,7 +231,7 @@ const dataCategory = async () => {
 
 const getMainMenuTemplate = () => {
 
-    API.get('/categories?page=1&limit=7').
+    const result1 = API.get('/categories?page=1&limit=7').
     then(res => {
         console.log("----------");
         // console.log(res)
@@ -252,6 +252,20 @@ const getMainMenuTemplate = () => {
         (result) => {
             console.log("?????????");
             console.log(result);
+            console.log(typeof(result));
+
+            let Arr = [
+                {
+                    "type": "postback",
+                    "title": "Learn Web",
+                    "payload": "LEARN_WEB",
+                },
+                {
+                    "type": "postback",
+                    "title": "Learn Mobile",
+                    "payload": "LEARN_MOBILE",
+                },
+            ];
             let response = {
                 "attachment": {
                     "type": "template",
@@ -291,6 +305,7 @@ const getMainMenuTemplate = () => {
         }
     ).
     catch(err => console.log(err));
+    return result1;
     
     // let Arr = [
     //     {
