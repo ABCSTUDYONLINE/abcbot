@@ -235,16 +235,16 @@ const getMainMenuTemplate = () => {
     then(res => {
         console.log("----------");
         // console.log(res)
-        
-        const result = res.data.list.map( (data,index) => {
-            return {
-                type: "postback",
-                title: data.levelCategory,
-                payload: "LEARN_"+`${data.levelCategory}`
-            }
-        });;
+        console.log(res.data.list);
+        // const result = res.data.list.map( (data,index) => {
+        //     return {
+        //         type: "postback",
+        //         title: data.levelCategory,
+        //         payload: "LEARN_"+`${data.levelCategory}`
+        //     }
+        // });;
         console.log("AAAAAAAAAAAAA");
-        console.log(result);
+        // console.log(result);
         let response = {
             "attachment": {
                 "type": "template",
@@ -254,7 +254,7 @@ const getMainMenuTemplate = () => {
                         "title": "CATALOG SOURSE",
                         "subtitle": "Danh mục khóa học tại ABC Study Online",
                         "image_url": IMAGE_GET_STARTED,
-                        "buttons": result,
+                        "buttons": [],
                     },
                     {
                         "title": "WEBSITE",
