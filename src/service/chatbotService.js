@@ -231,10 +231,11 @@ const dataCategory = async () => {
 
 const getMainMenuTemplate = () => {
 
-    console.log("----------");
     API.get('/categories?page=1&limit=7').
     then(res => {
-        console.log(res.data.list)
+        console.log("----------");
+        console.log(res)
+        console.log("AAAAAAAAAAAAA");
         const result = res.data.list;
         let response = {
             "attachment": {
