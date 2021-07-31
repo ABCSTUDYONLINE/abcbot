@@ -228,7 +228,8 @@ const dataCategory = async () => {
 }
 
 const getMainMenuTemplate = async () => {
-    const result1 = await dataCategory();
+    const result = await dataCategory();
+    const result1 = Object.keys(result);
     console.log("----------");
     console.log(result1);
     console.log(typeof(result1));
