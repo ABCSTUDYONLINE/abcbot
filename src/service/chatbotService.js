@@ -229,7 +229,11 @@ const dataCategory = async () => {
 
 const getMainMenuTemplate = async () => {
     const result1 = await dataCategory();
-    
+    result1.push({
+        type: "postback",
+        title: "web",
+        payload: "LEARN_Web"
+    })
     console.log("----------");
     console.log(result1);
     let response = {
@@ -241,7 +245,7 @@ const getMainMenuTemplate = async () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": [result1],
+                    "buttons": result1,
                 },
                 {
                     "title": "WEBSITE",
