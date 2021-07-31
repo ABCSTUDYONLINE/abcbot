@@ -221,14 +221,14 @@ const getMainMenuTemplate =  () => {
     // });
     const result1=[
         {
-            "type": "postback",
-            "title": "Learn Web",
-            "payload": "LEARN_WEB",
+            type: "postback",
+            title: "Learn Web",
+            payload: "LEARN_WEB",
         },
         {
-            "type": "postback",
-            "title": "Learn Mobile",
-            "payload": "LEARN_MOBILE",
+            type: "postback",
+            title: "Learn Mobile",
+            payload: "LEARN_MOBILE",
         },
     ]
     // // console.log(result);
@@ -241,7 +241,7 @@ const getMainMenuTemplate =  () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": `${result1}`,
+                    "buttons": result1,
                 },
                 {
                     "title": "WEBSITE",
