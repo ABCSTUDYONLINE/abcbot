@@ -206,9 +206,9 @@ const getMainMenuTemplate = async () => {
     // console.log(datas)
 
     const catalog = Catalog(datas);
-    
+    console.log(catalog);
     const result = catalog.map( (data,index) => {
-        console.log(data)
+        // console.log(data)
         // const catalog = [];
         
         return {
@@ -217,7 +217,7 @@ const getMainMenuTemplate = async () => {
             "payload": "LEARN_"+`${data.levelCategory}`
         }
     });
-    console.log(result);
+    // console.log(result);
     let response = {
         "attachment": {
             "type": "template",
