@@ -234,8 +234,8 @@ const getMainMenuTemplate = () => {
     API.get('/categories?page=1&limit=7').
     then(res => {
         console.log("----------");
-        console.log(res)
-        console.log("AAAAAAAAAAAAA");
+        // console.log(res)
+        
         const result = res.data.list.map( (data,index) => {
             return {
                 type: "postback",
@@ -243,6 +243,8 @@ const getMainMenuTemplate = () => {
                 payload: "LEARN_"+`${data.levelCategory}`
             }
         });;
+        console.log("AAAAAAAAAAAAA");
+        console.log(result);
         let response = {
             "attachment": {
                 "type": "template",
