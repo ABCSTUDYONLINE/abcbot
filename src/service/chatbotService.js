@@ -204,33 +204,22 @@ function Catalog(arr) {
     return newArr
 }
 
-const getMainMenuTemplate =  () => {
-    // const res = await getCategories(1,7);
-    // // console.log(res.data.list);
-    // const datas = res.data.list;
-    // // console.log(datas)
+const getMainMenuTemplate = async () => {
+    const res = await getCategories(1,7);
+    // console.log(res.data.list);
+    const datas = res.data.list;
+    // console.log(datas)
 
-    // const catalog = Catalog(datas);
-    // // console.log(catalog);
-    // const result = catalog.map( (data,index) => {
-    //     return {
-    //         "type": "postback",
-    //         "title": data.levelCategory,
-    //         "payload": "LEARN_"+`${data.levelCategory}`
-    //     }
-    // });
-    const result1=[
-        {
+    const catalog = Catalog(datas);
+    // console.log(catalog);
+    const result = catalog.map( (data,index) => {
+        return {
             type: "postback",
-            title: "Learn Web",
-            payload: "LEARN_WEB",
-        },
-        {
-            type: "postback",
-            title: "Learn Mobile",
-            payload: "LEARN_MOBILE",
-        },
-    ]
+            title: data.levelCategory,
+            payload: "LEARN_"+`${data.levelCategory}`
+        }
+    });
+    
     // // console.log(result);
     let response = {
         "attachment": {
@@ -241,7 +230,7 @@ const getMainMenuTemplate =  () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": result1,
+                    "buttons": result,
                 },
                 {
                     "title": "WEBSITE",
