@@ -204,24 +204,30 @@ function Catalog(arr) {
     return newArr
 }
 
-const getMainMenuTemplate = async () => {
-    try {
-        const res = await getCategories(1,7);
-        // console.log(res.data.list);
-        const datas = res.data.list;
-        // console.log(datas)
+const dataCategory = async () => {
+    const res = await getCategories(1,7);
+    // console.log(res.data.list);
+    const datas = res.data.list;
+    // console.log(datas)
 
-        const catalog = Catalog(datas);
-        // console.log(catalog);
-        const result = catalog.map( (data,index) => {
-            return {
-                type: "postback",
-                title: data.levelCategory,
-                payload: "LEARN_"+`${data.levelCategory}`
-            }
-        });
+    const catalog = Catalog(datas);
+    // console.log(catalog);
+    const result = catalog.map( (data,index) => {
+        return {
+            type: "postback",
+            title: data.levelCategory,
+            payload: "LEARN_"+`${data.levelCategory}`
+        }
+    });
+    return result;
+}
+
+const getMainMenuTemplate = () => {
+    try {
         
-        console.log(result);
+        const result1 = dataCategory;
+        
+        // console.log(result);
         let response = {
             "attachment": {
                 "type": "template",
@@ -231,7 +237,7 @@ const getMainMenuTemplate = async () => {
                         "title": "CATALOG SOURSE",
                         "subtitle": "Danh mục khóa học tại ABC Study Online",
                         "image_url": IMAGE_GET_STARTED,
-                        "buttons": result,
+                        "buttons": result1,
                     },
                     {
                         "title": "WEBSITE",
