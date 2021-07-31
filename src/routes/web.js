@@ -1,6 +1,6 @@
 import express from "express";
 import homeController from "../controllers/homeController";
-import {getCategories} from '../utils/categoreApi';
+import {getCategories} from '../utils/categoryApi';
 import {getCourses} from '../utils/courseApi';
 
 const router = express.Router();

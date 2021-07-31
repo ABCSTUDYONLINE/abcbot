@@ -1,7 +1,7 @@
 require('dotenv').config();
 import request from "request";
 import API from "../utils/api";
-import {getCategories} from '../utils/categoreApi';
+import {getCategories} from '../utils/categoryApi';
 import {getCourses,findCourses} from '../utils/courseApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
@@ -235,7 +235,8 @@ const getMainMenuTemplate = () => {
     then(res => {
         console.log("----------");
         // console.log(res)
-        console.log(res.data.list);
+        console.log(res.data);
+        console.log(res.data.data.list);
         // const result = res.data.list.map( (data,index) => {
         //     return {
         //         type: "postback",

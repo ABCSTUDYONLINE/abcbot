@@ -1,7 +1,7 @@
 require('dotenv').config();
 import request from "request";
 import chatbotService from "../service/chatbotService";
-// import {getCategories} from '../utils/categoreApi';
+// import {getCategories} from '../utils/categoryApi';
 // import {getCourses,findCourses} from '../utils/courseApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
