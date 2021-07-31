@@ -227,7 +227,7 @@ const dataCategory = async () => {
     
 }
 
-const getMainMenuTemplate = async () => {
+const getMainMenuTemplate = () => {
     
     let Arr = [
         {
