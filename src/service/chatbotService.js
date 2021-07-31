@@ -203,8 +203,8 @@ function Catalog(arr) {
     }
     return newArr
 }
-
-const dataCategory = async () => {
+let arrData = [];
+(async () => {
     try {
         const res = await getCategories(1,7);
         // console.log(res.data.list);
@@ -220,12 +220,13 @@ const dataCategory = async () => {
                 payload: "LEARN_"+`${data.levelCategory}`
             }
         });
+        arrData = result;
         return result;
     } catch (error) {
         console.log(error);
     }
     
-}
+})()
 
 const getMainMenuTemplate = () => {
     
@@ -250,7 +251,7 @@ const getMainMenuTemplate = () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": Arr,
+                    "buttons": arrData,
                 },
                 {
                     "title": "WEBSITE",
