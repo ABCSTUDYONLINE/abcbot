@@ -250,23 +250,12 @@ const getMainMenuTemplate = () => {
         
     }).then(
         (result) => {
-            let Arr = [
-                {
-                "type": "postback",
-                "title": "Learn Web",
-                "payload": "LEARN_WEB",
-            },
-            {
-                "type": "postback",
-                "title": "Learn Mobile",
-                "payload": "LEARN_MOBILE",
-            },
-        ];
-            // for (const i of result) {
-            //     // console.log("/////////");
-            //     // console.log(i);
-            //     Arr.push(i);
-            // }
+            let Arr = [];
+            for (const i of result) {
+                // console.log("/////////");
+                // console.log(i);
+                Arr.push(i);
+            }
             console.log("?????????");
             console.log(Arr);
             console.log(typeof(Arr));
@@ -279,7 +268,13 @@ const getMainMenuTemplate = () => {
                             "title": "CATALOG SOURSE",
                             "subtitle": "Danh mục khóa học tại ABC Study Online",
                             "image_url": IMAGE_GET_STARTED,
-                            "buttons": Arr,
+                            "buttons": Arr.map((i,index) => {
+                                return  {
+                                    "type": "postback",
+                                    "title": index,
+                                    "payload": "LEARN_WEB",
+                                }
+                            }),
                         },
                         {
                             "title": "WEBSITE",
