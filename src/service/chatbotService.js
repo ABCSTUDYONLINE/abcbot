@@ -245,7 +245,7 @@ const getMainMenuTemplate = () => {
             }
         });
         console.log("AAAAAAAAAAAAA");
-        // console.log(result);
+        console.log(result);
         let response = {
             "attachment": {
                 "type": "template",
