@@ -17,7 +17,19 @@ const initWebRoutes = (app) => {
     router.get('/test', async (req, res) => {
         const data = await getCategories(1,7);
         // const data = await getCourses(0,1,7)
-        return res.json(data.data.list);
+        // return res.json(data.data.list);
+        const datas= data.data.list;
+        // console.log(data.data.list);
+        // const result = datas.map(data =>
+        //     {
+        //         console.log(data);
+        //         return data;
+        //     }
+            
+        // )
+        // console.log(result);
+        // return result;
+        return datas;
     })
 
     return app.use('/', router);

@@ -197,7 +197,15 @@ const getMainMenuTemplate = async () => {
     // console.log(res.data.list);
     const datas = res.data.list;
     // console.log(datas)
-    // const result = datas.map( data => )
+    const result = datas.map( data => {
+        console.log(data)
+        return {
+            "type": "postback",
+            "title": data.levelCategory,
+            "payload": "LEARN_"+`${data.id}`
+        }
+    });
+    console.log(result);
     let response = {
         "attachment": {
             "type": "template",
@@ -207,14 +215,7 @@ const getMainMenuTemplate = async () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        datas.map((data) =>{
-                            return {
-                                "type": "postback",
-                                "title": data.levelCategory,
-                                "payload": "LEARN_"+`${data.id}`,
-                            } 
-                        })
+                    "buttons": result
                         // {
                         //     "type": "postback",
                         //     "title": "Learn Web",
@@ -226,7 +227,7 @@ const getMainMenuTemplate = async () => {
                         //     "payload": "LEARN_MOBILE",
                         // },
 
-                    ],
+                    ,
                 },
                 {
                     "title": "WEBSITE",
