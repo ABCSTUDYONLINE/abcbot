@@ -226,7 +226,7 @@ const getMainMenuTemplate = async () => {
     try {
         const result1 = await dataCategory();
         
-        // console.log(result);
+        console.log(result1);
         let response = {
             "attachment": {
                 "type": "template",
@@ -261,7 +261,7 @@ const getMainMenuTemplate = async () => {
                 }
             }
         };
-        console.log(response);
+        // console.log(response);
         return response;
     } catch (error) {
         console.log(error);
