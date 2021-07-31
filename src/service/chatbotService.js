@@ -196,7 +196,8 @@ const getMainMenuTemplate = () => {
     const res = await getCategories(1,7);
     // console.log(res.data.list);
     const datas = res.data.list;
-    console.log(datas)
+    // console.log(datas)
+    // const result = datas.map( data => )
     let response = {
         "attachment": {
             "type": "template",
@@ -207,11 +208,13 @@ const getMainMenuTemplate = () => {
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
                     "buttons": [
-                        datas.map(data =>({
-                            "type": "postback",
-                            "title": data[index].levelCategory,
-                            "payload": "LEARN_"+`${data[index].id}`,
-                        }))
+                        datas.map(data =>{
+                            return {
+                                "type": "postback",
+                                "title": data[index].levelCategory,
+                                "payload": "LEARN_"+`${data[index].id}`,
+                            } 
+                        })
                         // {
                         //     "type": "postback",
                         //     "title": "Learn Web",
