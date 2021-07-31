@@ -251,13 +251,12 @@ const getMainMenuTemplate = () => {
     }).then(
         (result) => {
             let Arr = [];
-            
-            result.foreach(item => {
-                Arr.push(item);
-            })
+            for (const i of result) {
+                console.log(i);
+            }
             console.log("?????????");
-            console.log(Arr);
-            console.log(typeof(Arr));
+            // console.log(Arr);
+            // console.log(typeof(Arr));
             let response = {
                 "attachment": {
                     "type": "template",
