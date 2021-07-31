@@ -1,5 +1,6 @@
 require('dotenv').config();
 import request from "request";
+import API from "../utils/api";
 import {getCategories} from '../utils/categoreApi';
 import {getCourses,findCourses} from '../utils/courseApi';
 
@@ -204,7 +205,7 @@ function Catalog(arr) {
     return newArr
 }
 let arrData = [];
-(async () => {
+const dataCategory = async () => {
     try {
         const res = await getCategories(1,7);
         // console.log(res.data.list);
@@ -226,58 +227,102 @@ let arrData = [];
         console.log(error);
     }
     
-})()
+}
 
 const getMainMenuTemplate = () => {
+
+    console.log("----------");
+    API.get('/categories?page=1&limit=7').
+    then(res => {
+        console.log(res.data.list)
+        const result = res.data.list;
+        let response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                        "title": "CATALOG SOURSE",
+                        "subtitle": "Danh mục khóa học tại ABC Study Online",
+                        "image_url": IMAGE_GET_STARTED,
+                        "buttons": result,
+                    },
+                    {
+                        "title": "WEBSITE",
+                        "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+                        "image_url": IMAGE_GET_STARTED,
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "title": "Website",
+                                "url": "https://abcchatbot.herokuapp.com/",
+                                "webview_height_ratio": "full"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "Trở về",
+                                "payload": "BACK_MAIN",
+                            }
     
-    let Arr = [
-        {
-            "type": "postback",
-            "title": "Learn Web",
-            "payload": "LEARN_WEB",
-        },
-    ]
+                        ],
+                    }
+                    ]
+                }
+            }
+        };
+        // console.log(response);
+        return response;
+    }).
+    catch(err => console.log(err));
+    
+    // let Arr = [
+    //     {
+    //         "type": "postback",
+    //         "title": "Learn Web",
+    //         "payload": "LEARN_WEB",
+    //     },
+    // ]
     // const result1 = dataCategory();
 
     // Arr = [...result1]
-    console.log("----------");
+    // console.log("----------");
     // console.log(result1);
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "CATALOG SOURSE",
-                    "subtitle": "Danh mục khóa học tại ABC Study Online",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": arrData,
-                },
-                {
-                    "title": "WEBSITE",
-                    "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Website",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_MAIN",
-                        }
+    // let response = {
+    //     "attachment": {
+    //         "type": "template",
+    //         "payload": {
+    //             "template_type": "generic",
+    //             "elements": [{
+    //                 "title": "CATALOG SOURSE",
+    //                 "subtitle": "Danh mục khóa học tại ABC Study Online",
+    //                 "image_url": IMAGE_GET_STARTED,
+    //                 "buttons": Arr,
+    //             },
+    //             {
+    //                 "title": "WEBSITE",
+    //                 "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+    //                 "image_url": IMAGE_GET_STARTED,
+    //                 "buttons": [
+    //                     {
+    //                         "type": "web_url",
+    //                         "title": "Website",
+    //                         "url": "https://abcchatbot.herokuapp.com/",
+    //                         "webview_height_ratio": "full"
+    //                     },
+    //                     {
+    //                         "type": "postback",
+    //                         "title": "Trở về",
+    //                         "payload": "BACK_MAIN",
+    //                     }
 
-                    ],
-                }
-                ]
-            }
-        }
-    };
-    // console.log(response);
-    return response;
+    //                 ],
+    //             }
+    //             ]
+    //         }
+    //     }
+    // };
+    // // console.log(response);
+    // return response;
 }
 
 const handleSendCatWeb = (sender_psid) => {
