@@ -236,11 +236,11 @@ const getMainMenuTemplate = () => {
             "payload": "LEARN_WEB",
         },
     ]
-    const result1 = dataCategory();
+    // const result1 = dataCategory();
 
     // Arr = [...result1]
     console.log("----------");
-    console.log(result1);
+    // console.log(result1);
     let response = {
         "attachment": {
             "type": "template",
