@@ -17,7 +17,7 @@ const initWebRoutes = (app) => {
     router.get('/test', async (req, res) => {
         const data = await getCategories(1,7);
         // const data = await getCourses(0,1,7)
-        return res.json(data.data.list[0].levelCategory);
+        return res.json(data.data.list);
     })
 
     return app.use('/', router);

@@ -208,11 +208,11 @@ const getMainMenuTemplate = async () => {
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
                     "buttons": [
-                        datas.map((data,index) =>{
+                        datas.map((data) =>{
                             return {
                                 "type": "postback",
-                                "title": data[index].levelCategory,
-                                "payload": "LEARN_"+`${data[index].id}`,
+                                "title": data.levelCategory,
+                                "payload": "LEARN_"+`${data.id}`,
                             } 
                         })
                         // {
