@@ -255,7 +255,7 @@ const getMainMenuTemplate = () => {
                         "title": "CATALOG SOURSE",
                         "subtitle": "Danh mục khóa học tại ABC Study Online",
                         "image_url": IMAGE_GET_STARTED,
-                        "buttons": [],
+                        "buttons": result,
                     },
                     {
                         "title": "WEBSITE",
