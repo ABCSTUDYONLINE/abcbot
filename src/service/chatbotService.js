@@ -214,9 +214,9 @@ const dataCategory = async () => {
     // console.log(catalog);
     const result = catalog.map( (data,index) => {
         return {
-            type: "postback",
-            title: data.levelCategory,
-            payload: "LEARN_"+`${data.levelCategory}`
+            "type": "postback",
+            "title": data.levelCategory,
+            "payload": "LEARN_"+`${data.levelCategory}`
         }
     });
     return result;
@@ -226,7 +226,7 @@ const getMainMenuTemplate = async () => {
     try {
         const result1 = await dataCategory();
         
-        console.log(result1);
+        // console.log(result1);
         let response = {
             "attachment": {
                 "type": "template",
