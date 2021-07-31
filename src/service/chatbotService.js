@@ -225,7 +225,7 @@ const dataCategory = async () => {
 const getMainMenuTemplate = () => {
     try {
         
-        const result1 = dataCategory;
+        const result1 = dataCategory();
         
         // console.log(result);
         let response = {
