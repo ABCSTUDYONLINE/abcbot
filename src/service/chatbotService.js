@@ -250,12 +250,23 @@ const getMainMenuTemplate = () => {
         
     }).then(
         (result) => {
-            let Arr = [];
-            for (const i of result) {
-                // console.log("/////////");
-                // console.log(i);
-                Arr.push(i);
-            }
+            let Arr = [
+                {
+                "type": "postback",
+                "title": "Learn Web",
+                "payload": "LEARN_WEB",
+            },
+            {
+                "type": "postback",
+                "title": "Learn Mobile",
+                "payload": "LEARN_MOBILE",
+            },
+        ];
+            // for (const i of result) {
+            //     // console.log("/////////");
+            //     // console.log(i);
+            //     Arr.push(i);
+            // }
             console.log("?????????");
             console.log(Arr);
             console.log(typeof(Arr));
