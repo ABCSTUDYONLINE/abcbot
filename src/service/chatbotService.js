@@ -213,69 +213,26 @@ const getMainMenuTemplate = async () => {
     const catalog = Catalog(datas);
     // // console.log(catalog);
     const result = catalog.map( (data,index) => {
-        // console.log(data)
-        // const catalog = [];
-        
         return {
             "type": "postback",
             "title": data.levelCategory,
             "payload": "LEARN_"+`${data.levelCategory}`
         }
     });
-    // // console.log(result);
-    // let response = {
-    //     "attachment": {
-    //         "type": "template",
-    //         "payload": {
-    //             "template_type": "generic",
-    //             "elements": [{
-    //                 "title": "CATALOG SOURSE",
-    //                 "subtitle": "Danh mục khóa học tại ABC Study Online",
-    //                 "image_url": IMAGE_GET_STARTED,
-    //                 "buttons": 
-    //                 // catalog.map( (data) => {
-    //                 //     return {
-    //                 //         "type": "postback",
-    //                 //         "title": data.levelCategory,
-    //                 //         "payload": "LEARN_"+`${data.levelCategory}`
-    //                 //     }
-    //                 // })
-    //                    [ {
-    //                         "type": "postback",
-    //                         "title": "Learn Web",
-    //                         "payload": "LEARN_WEB",
-    //                     },
-    //                     {
-    //                         "type": "postback",
-    //                         "title": "Learn Mobile",
-    //                         "payload": "LEARN_MOBILE",
-    //                     },
-    //                     ],
-    //             },
-    //             {
-    //                 "title": "WEBSITE",
-    //                 "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-    //                 "image_url": IMAGE_GET_STARTED,
-    //                 "buttons": [
-    //                     {
-    //                         "type": "web_url",
-    //                         "title": "Website",
-    //                         "url": "https://abcchatbot.herokuapp.com/",
-    //                         "webview_height_ratio": "full"
-    //                     },
-    //                     {
-    //                         "type": "postback",
-    //                         "title": "Trở về",
-    //                         "payload": "BACK_MAIN",
-    //                     }
+    const result1=[
+        {
+            "type": "postback",
+            "title": "Learn Web",
+            "payload": "LEARN_WEB",
+        },
+        {
+            "type": "postback",
+            "title": "Learn Mobile",
+            "payload": "LEARN_MOBILE",
+        },
 
-    //                 ],
-    //             }
-    //             ]
-    //         }
-    //     }
-    // };
-    // return response;
+    ]
+    // // console.log(result);
     let response = {
         "attachment": {
             "type": "template",
@@ -285,7 +242,7 @@ const getMainMenuTemplate = async () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": result,
+                    "buttons": result1,
                 },
                 {
                     "title": "WEBSITE",
