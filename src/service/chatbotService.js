@@ -245,14 +245,16 @@ const getMainMenuTemplate = () => {
             }
         });
         console.log("AAAAAAAAAAAAA");
-        console.log(result);
+        // console.log(result);
         return result;
         
     }).then(
         (result) => {
             let Arr = [];
             for (const i of result) {
+                console.log("/////////");
                 console.log(i);
+                Arr.push(i);
             }
             console.log("?????????");
             // console.log(Arr);
