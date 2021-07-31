@@ -233,17 +233,17 @@ const getMainMenuTemplate = async () => {
         {
             "type": "postback",
             "title": "Trở về",
-            "payload": "BACK_MAIN",
+            "payload": "LEAN_WEB",
         },
         {
             "type": "postback",
             "title": "Trở về",
-            "payload": "BACK_MAIN",
+            "payload": "BACK",
         }
     ]
     const result1 = await dataCategory();
 
-    Arr = [...result1]
+    // Arr = [...result1]
     console.log("----------");
     console.log(result1);
     let response = {
