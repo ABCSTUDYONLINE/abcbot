@@ -197,12 +197,13 @@ const getMainMenuTemplate = async () => {
     // console.log(res.data.list);
     const datas = res.data.list;
     // console.log(datas)
-    const result = datas.map( data => {
+    const result = datas.map( (data,index) => {
         console.log(data)
+        if(index == 2 ) return 0;
         return {
             "type": "postback",
             "title": data.levelCategory,
-            "payload": "LEARN_"+`${data.id}`
+            "payload": "LEARN_"+`${data.levelCategory}`
         }
     });
     console.log(result);
