@@ -235,15 +235,15 @@ const getMainMenuTemplate = () => {
     then(res => {
         console.log("----------");
         // console.log(res)
-        console.log(res.data);
-        console.log(res.data.data.list);
-        // const result = res.data.list.map( (data,index) => {
-        //     return {
-        //         type: "postback",
-        //         title: data.levelCategory,
-        //         payload: "LEARN_"+`${data.levelCategory}`
-        //     }
-        // });;
+        // console.log(res.data);
+        // console.log(res.data.data.list);
+        const result = res.data.data.list.map( (data,index) => {
+            return {
+                type: "postback",
+                title: data.levelCategory,
+                payload: "LEARN_"+`${data.levelCategory}`
+            }
+        });
         console.log("AAAAAAAAAAAAA");
         // console.log(result);
         let response = {
