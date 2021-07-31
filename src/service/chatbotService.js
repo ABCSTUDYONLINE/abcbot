@@ -250,6 +250,8 @@ const getMainMenuTemplate = () => {
         
     }).then(
         (result) => {
+            console.log("?????????");
+            console.log(result);
             let response = {
                 "attachment": {
                     "type": "template",
