@@ -191,15 +191,26 @@ const handleSendCatalog = (sender_psid) => {
         }
     })
 }
+function Catalog(arr) {
+    var newArr = []
+    newArr = arr.filter(function (item) {
+        return newArr.includes(item.title) ? '' : newArr.push(item)
+    })
+    return newArr
+}
 
 const getMainMenuTemplate = async () => {
     const res = await getCategories(1,7);
     // console.log(res.data.list);
     const datas = res.data.list;
     // console.log(datas)
-    const result = datas.map( (data,index) => {
+
+    const catalog = Catalog(datas);
+    
+    const result = catalog.map( (data,index) => {
         console.log(data)
-        if(index == 2 ) return 0;
+        // const catalog = [];
+        
         return {
             "type": "postback",
             "title": data.levelCategory,
