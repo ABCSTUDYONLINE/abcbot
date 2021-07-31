@@ -191,11 +191,16 @@ const handleSendCatalog = (sender_psid) => {
         }
     })
 }
+
 function Catalog(arr) {
-    var newArr = []
-    newArr = arr.filter(function (item) {
-        return newArr.includes(item.title) ? '' : newArr.push(item)
-    })
+    var newArr = [...arr];
+    for(let i = 0; i < newArr.length-1; i++) {
+        for(let j = 1; j < newArr.length; j++) {
+            if(newArr[j].levelCategory === newArr[i].levelCategory)
+                // console.log(j,datas[j]);
+                newArr.splice(j,1);
+        }
+    }
     return newArr
 }
 
