@@ -222,7 +222,7 @@ const getMainMenuTemplate = async () => {
             "payload": "LEARN_"+`${data.levelCategory}`
         }
     });
-    console.log(result);
+    // console.log(result);
     let response = {
         "attachment": {
             "type": "template",
