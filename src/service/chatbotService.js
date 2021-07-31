@@ -222,10 +222,9 @@ const dataCategory = async () => {
     return result;
 }
 
-const getMainMenuTemplate = () => {
+const getMainMenuTemplate = async () => {
     try {
-        
-        const result1 = dataCategory();
+        const result1 = await dataCategory();
         
         // console.log(result);
         let response = {
