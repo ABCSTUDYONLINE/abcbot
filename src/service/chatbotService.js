@@ -229,16 +229,21 @@ const dataCategory = async () => {
     
 }
 
-const getMainMenuTemplate = async () => {
+const getMainMenuTemplate = () => {
 
-    // let Arr = [
-    //     {
-    //         "type": "postback",
-    //         "title": "Learn Web",
-    //         "payload": "LEARN_WEB",
-    //     },
-    // ]
-    const result1 = await dataCategory();
+    let Arr = [
+        {
+            "type": "postback",
+            "title": "Learn Web",
+            "payload": "LEARN_WEB",
+        },
+        {
+            "type": "postback",
+            "title": "Learn Mobile",
+            "payload": "LEARN_MOBILE",
+        },
+    ]
+    const result1 =  dataCategory();
 
     // Arr = [...result1]
     console.log("----------");
@@ -252,7 +257,7 @@ const getMainMenuTemplate = async () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": result1,
+                    "buttons": Arr,
                 },
                 {
                     "title": "WEBSITE",
