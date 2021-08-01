@@ -213,7 +213,7 @@ const dataCategory = async () => {
         // console.log(datas)
 
         const catalog = Catalog(datas);
-        // console.log(catalog);
+        console.log(catalog);
         const result = catalog.map( (data,index) => {
             return {
                 // type: "postback",
