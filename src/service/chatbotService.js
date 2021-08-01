@@ -216,9 +216,26 @@ const dataCategory = async () => {
         // console.log(catalog);
         const result = catalog.map( (data,index) => {
             return {
-                type: "postback",
-                title: data.levelCategory,
-                payload: "LEARN_"+`${data.levelCategory}`
+                // type: "postback",
+                // title: data.levelCategory,
+                // payload: "LEARN_"+`${data.levelCategory}`
+                
+                    "title": "CATALOG SOURSE",
+                    "subtitle": "Danh mục khóa học tại ABC Study Online",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Learn Web",
+                            "payload": "LEARN_WEB",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Learn Mobile",
+                            "payload": "LEARN_MOBILE",
+                        },
+                    ],
+                
             }
         });
         arrData = result;
@@ -231,54 +248,38 @@ const dataCategory = async () => {
 
 const getMainMenuTemplate = () => {
 
-    let Arr = [
-        {
-            "type": "postback",
-            "title": "Learn Web",
-            "payload": "LEARN_WEB",
-        },
-        {
-            "type": "postback",
-            "title": "Learn Mobile",
-            "payload": "LEARN_MOBILE",
-        },
-    ]
+    
     const result1 =  dataCategory();
 
     // Arr = [...result1]
     console.log("----------");
     console.log(result1);
+    const result2 = [...result1,...[{
+        "title": "WEBSITE",
+        "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+        "image_url": IMAGE_GET_STARTED,
+        "buttons": [
+            {
+                "type": "web_url",
+                "title": "Website",
+                "url": "https://abcchatbot.herokuapp.com/",
+                "webview_height_ratio": "full"
+            },
+            {
+                "type": "postback",
+                "title": "Trở về",
+                "payload": "BACK_MAIN",
+            }
+
+        ],
+    }]]
+    console.log(result2);
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": [{
-                    "title": "CATALOG SOURSE",
-                    "subtitle": "Danh mục khóa học tại ABC Study Online",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": Arr,
-                },
-                {
-                    "title": "WEBSITE",
-                    "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Website",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_MAIN",
-                        }
-
-                    ],
-                }
-                ]
+                "elements": result2
             }
         }
     };
