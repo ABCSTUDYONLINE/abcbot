@@ -6,11 +6,11 @@ import chatbotService from "../service/chatbotService";
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-const getHomePage = (req, res) => {
+let getHomePage = (req, res) => {
     return res.render('homepage.ejs');
 };
 
-const postWebhook = (req, res) => {
+let postWebhook = (req, res) => {
     let body = req.body;
 
     // Checks this is an event from a page subscription
@@ -46,7 +46,7 @@ const postWebhook = (req, res) => {
     }
 };
 
-const getWebhook = (req, res) => {
+let getWebhook = (req, res) => {
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -75,7 +75,7 @@ const getWebhook = (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
-
+        
     // Checks if the message contains text
     if (received_message.text) {
         // Create the payload for a basic text message, which
@@ -219,7 +219,7 @@ function callSendAPI(sender_psid, response) {
     });
 }
 
-const setupProfile = async (req, res) => {
+let setupProfile = async (req, res) => {
     //call profile facebook api
     // Construct the message body
     let request_body = {
@@ -245,7 +245,7 @@ const setupProfile = async (req, res) => {
     return res.send("Setup profile succeed!");
 };
 
-const setupPersistentMenu = async (req, res) => {
+let setupPersistentMenu = async (req, res) => {
     let request_body = {
         "persistent_menu": [
             {

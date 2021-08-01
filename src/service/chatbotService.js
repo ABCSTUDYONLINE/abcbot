@@ -6,7 +6,7 @@ import {getCourses,findCourses} from '../utils/courseApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-const IMAGE_GET_STARTED = 'http://bit.ly/abcstudyonline';
+const IMAGE_GET_STARTED = 'https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/giphy.gif';
 const IMAGE_WEB_JS = 'http://bit.ly/bot_javascript';
 const IMAGE_WEB_REACTJS = 'http://bit.ly/bot_reactjs';
 const IMAGE_WEB_NODEJS = 'http://bit.ly/bot_nodejs';
@@ -22,7 +22,7 @@ const IMAGE_MOBILE_KOTLIN = 'http://bit.ly/bot_kotlin';
 const IMAGE_MOBILE_SWIFT = 'http://bit.ly/bot_swift'; */
 
 
-const callSendAPI = async (sender_psid, response) => {
+let callSendAPI = async (sender_psid, response) => {
     return new Promise(async (resolve, reject) => {
         try {
             // Construct the message body
@@ -60,7 +60,7 @@ const callSendAPI = async (sender_psid, response) => {
 
 }
 
-const sendTypingon = (sender_psid) => {
+let sendTypingon = (sender_psid) => {
     // Construct the message body
     let request_body = {
         "recipient": {
@@ -84,7 +84,7 @@ const sendTypingon = (sender_psid) => {
     });
 }
 
-const MarkMessage = (sender_psid) => {
+let MarkMessage = (sender_psid) => {
     // Construct the message body
     let request_body = {
         "recipient": {
@@ -108,7 +108,7 @@ const MarkMessage = (sender_psid) => {
     });
 }
 
-const getUserName = (sender_psid) => {
+let getUserName = (sender_psid) => {
 
     return new Promise((resolve, reject) => {
         request({
@@ -127,18 +127,19 @@ const getUserName = (sender_psid) => {
     })
 }
 
-const handleGetStarted = (sender_psid) => {
+let handleGetStarted = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let username = await getUserName(sender_psid);
-            let response1 = { "text": `Xin chào mừng ${username} đến với ABC Study Online` }
-
-            let response2 = getStartedTemplate();
+            let response1 = { "text": `Xin chào mừng ${username} đến với ABCStudy Online` }
+            let response2 = await getSendGif();
+            let response3 = await getStartedTemplate();
             //send text message
             await callSendAPI(sender_psid, response1);
-
-            //send generic template message
+            //send a gif
             await callSendAPI(sender_psid, response2);
+            //send quick reply
+            await callSendAPI(sender_psid, response3);
 
 
             resolve('done');
@@ -147,38 +148,39 @@ const handleGetStarted = (sender_psid) => {
         }
     })
 }
-
-const getStartedTemplate = () => {
+let getSendGif = () => {
     let response = {
         "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "ABCSTUDY ONLINE",
-                    "subtitle": "Dưới đây là các option",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Tìm kiếm khóa học",
-                            "payload": "COURSE_SEARCH",
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Danh mục Khóa Học",
-                            "payload": "COURSE_CATALOG",
-                        }
-                    ],
-                }]
+            "type": "image",
+            "payload":{
+                "url" : IMAGE_GET_STARTED,
+                "is_reusable": true
             }
         }
+    }
+    return response;
+}
+let getStartedTemplate = () => {
+    let response = {
+        "text": "Vui lòng chọn chức năng!!",
+        "quick_replies":[
+            {
+                "content_type":"text",
+                "title":"Tìm kiếm khóa học",
+                "payload":"COURSE_SEARCH",
+            },
+            {
+                "content_type":"text",
+                "title":"Danh mục khóa học",
+                "payload":"COURSE_CATALOG",
+            }
+        ]
     };
     return response;
 }
 
 
-const handleSendCatalog = (sender_psid) => {
+let handleSendCatalog = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -204,41 +206,23 @@ function Catalog(arr) {
     }
     return newArr
 }
-// let arrData = [];
-const dataCategory = async () => {
+let dataCategory = async () => {
     try {
-        const res = await getCategories(1,7);
+        const res = await getCategories(1,10);
         // console.log(res.data.list);
         const datas = res.data.list;
         // console.log(datas)
 
         const catalog = Catalog(datas);
         console.log(catalog);
-        const result = catalog.map( (data,index) => {
-            return {
-                // type: "postback",
-                // title: data.levelCategory,
-                // payload: "LEARN_"+`${data.levelCategory}`
-                
-                    "title": `${data.categoryName}`,
-                    "subtitle": "Danh mục khóa học tại ABC Study Online",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Learn Web",
-                            "payload": "LEARN_WEB",
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Learn Mobile",
-                            "payload": "LEARN_MOBILE",
-                        },
-                    ],
-                
-            }
+        const result = catalog.map( (e) => {
+            const item = {
+                content_type: 'text',
+                title: e.levelCategory,
+                payload: `CATEGORY_ID_${e.levelCategory}`
+            };
+            return item;
         });
-        // arrData = result;
         return result;
     } catch (error) {
         console.log(error);
@@ -246,54 +230,27 @@ const dataCategory = async () => {
     
 }
 
-const getMainMenuTemplate = async () => {
+let getMainMenuTemplate = async () => {
 
-    
     const result1 = await dataCategory();
 
     // Arr = [...result1]
     console.log("----------");
     console.log(result1);
-    const result2 = [...result1,...[{
-        "title": "WEBSITE",
-        "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-        "image_url": IMAGE_GET_STARTED,
-        "buttons": [
-            {
-                "type": "web_url",
-                "title": "Website",
-                "url": "https://abcchatbot.herokuapp.com/",
-                "webview_height_ratio": "full"
-            },
-            {
-                "type": "postback",
-                "title": "Trở về",
-                "payload": "BACK_MAIN",
-            }
-
-        ],
-    }]]
+    const result2 = [...result1]
     console.log(result2);
     let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": result2
-            }
-        }
+        text: 'Vui lòng chọn Category?',
+        quick_replies: result2,
     };
     return response;
 }
 
-const handleSendCatWeb = (sender_psid) => {
+let handleSendCatWeb = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-
             let response1 = getCatWeb();
             await callSendAPI(sender_psid, response1);
-
-
             resolve('done');
         } catch (e) {
             reject(e);
@@ -301,7 +258,7 @@ const handleSendCatWeb = (sender_psid) => {
     })
 }
 
-const getCatWeb = () => {
+let getCatWeb = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -411,7 +368,7 @@ const getCatWeb = () => {
     return response;
 }
 
-const handleSendCatMobile = (sender_psid) => {
+let handleSendCatMobile = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -426,7 +383,7 @@ const handleSendCatMobile = (sender_psid) => {
     })
 }
 
-const getCatMobile = () => {
+let getCatMobile = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -536,23 +493,23 @@ const getCatMobile = () => {
     return response;
 }
 
-const handleBackCatalog = async (sender_psid) => {
+let handleBackCatalog = async (sender_psid) => {
     await handleSendCatalog(sender_psid);
 }
 
-const handleBackMain = async (sender_psid) => {
+let handleBackMain = async (sender_psid) => {
     let response2 = getStartedTemplate();
     await callSendAPI(sender_psid, response2);
 }
-const handleBackWeb = async (sender_psid) => {
+let handleBackWeb = async (sender_psid) => {
     await handleSendCatWeb(sender_psid);
 }
 
-const handleBackMobile = async (sender_psid) => {
+let handleBackMobile = async (sender_psid) => {
     await handleSendCatMobile(sender_psid);
 }
 
-const handleDetailJavascript = (sender_psid) => {
+let handleDetailJavascript = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -566,7 +523,7 @@ const handleDetailJavascript = (sender_psid) => {
     })
 }
 
-const getDetailJavascript = () => {
+let getDetailJavascript = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -634,7 +591,7 @@ const getDetailJavascript = () => {
     return response;
 }
 
-const handleDetailReactJS = (sender_psid) => {
+let handleDetailReactJS = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -647,7 +604,7 @@ const handleDetailReactJS = (sender_psid) => {
         }
     })
 }
-const getDetailReactJS = () => {
+let getDetailReactJS = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -715,7 +672,7 @@ const getDetailReactJS = () => {
     return response;
 }
 
-const handleDetailNodeJS = (sender_psid) => {
+let handleDetailNodeJS = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -728,7 +685,7 @@ const handleDetailNodeJS = (sender_psid) => {
         }
     })
 }
-const getDetailNodeJS = () => {
+let getDetailNodeJS = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -796,7 +753,7 @@ const getDetailNodeJS = () => {
     return response;
 }
 
-const handleDetailAndroid = (sender_psid) => {
+let handleDetailAndroid = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -809,7 +766,7 @@ const handleDetailAndroid = (sender_psid) => {
         }
     })
 }
-const getDetailAndroid = () => {
+let getDetailAndroid = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -877,7 +834,7 @@ const getDetailAndroid = () => {
     return response;
 }
 
-const handleDetailReactNative = (sender_psid) => {
+let handleDetailReactNative = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -890,7 +847,7 @@ const handleDetailReactNative = (sender_psid) => {
         }
     })
 }
-const getDetailReactNative = () => {
+let getDetailReactNative = () => {
     let response = {
         "attachment": {
             "type": "template",
@@ -958,7 +915,7 @@ const getDetailReactNative = () => {
     return response;
 }
 
-const handleDetailIOS = (sender_psid) => {
+let handleDetailIOS = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -971,7 +928,7 @@ const handleDetailIOS = (sender_psid) => {
         }
     })
 }
-const getDetailIOS = () => {
+let getDetailIOS = () => {
     let response = {
         "attachment": {
             "type": "template",
