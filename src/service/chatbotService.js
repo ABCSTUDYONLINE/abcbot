@@ -220,7 +220,7 @@ const dataCategory = async () => {
                 // title: data.levelCategory,
                 // payload: "LEARN_"+`${data.levelCategory}`
                 
-                    "title": "CATALOG SOURSE",
+                    "title": `${data.categoryName}`,
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
                     "buttons": [
