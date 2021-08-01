@@ -84,6 +84,9 @@ async function handleMessage(sender_psid, received_message) {
             await chatbotService.handleSendCatalog(sender_psid);
         }
         return;
+        if(received_message.quick_reply.payload.includes('CATEGORY_')){
+            await chatbotService.handleSendCatalog(sender_psid);
+        }
     }    
     // Checks if the message contains text
     if (received_message.text) {

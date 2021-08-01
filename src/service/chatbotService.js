@@ -206,6 +206,17 @@ function Catalog(arr) {
     }
     return newArr
 }
+function toUpper(str) {
+    return str
+        .toLowerCase()
+        .split(' ')
+        .map(function(Word) {
+            console.log("First capital letter: "+Word[0]);
+            console.log("remain letters: "+ Word.substr(1));
+            return Word[0].toUpperCase() + Word.substr(1);
+        })
+        .join(' ');
+}
 let dataCategory = async () => {
     try {
         const res = await getCategories(1,10);
@@ -218,8 +229,8 @@ let dataCategory = async () => {
         const result = catalog.map( (e) => {
             const item = {
                 content_type: 'text',
-                title: e.levelCategory,
-                payload: `CATEGORY_ID_${e.levelCategory}`
+                title: toUpper(e.levelCategory + "Development"),
+                payload: `CATEGORY_${e.levelCategory}`
             };
             return item;
         });
@@ -240,7 +251,7 @@ let getMainMenuTemplate = async () => {
     const result2 = [...result1]
     console.log(result2);
     let response = {
-        text: 'Vui lòng chọn Category?',
+        text: 'Vui lòng chọn danh mục khóa học?',
         quick_replies: result2,
     };
     return response;
