@@ -240,7 +240,7 @@ const getMainMenuTemplate = async () => {
     // ]
     const result1 = await dataCategory();
 
-    Arr = [...result1]
+    // Arr = [...result1]
     console.log("----------");
     console.log(result1);
     let response = {
@@ -252,7 +252,7 @@ const getMainMenuTemplate = async () => {
                     "title": "CATALOG SOURSE",
                     "subtitle": "Danh mục khóa học tại ABC Study Online",
                     "image_url": IMAGE_GET_STARTED,
-                    "buttons": Arr,
+                    "buttons": result1,
                 },
                 {
                     "title": "WEBSITE",
