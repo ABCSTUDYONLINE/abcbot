@@ -182,7 +182,7 @@ const handleSendCatalog = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
 
-            let response1 = getMainMenuTemplate();
+            let response1 = await getMainMenuTemplate();
             await callSendAPI(sender_psid, response1);
 
 
@@ -246,10 +246,10 @@ const dataCategory = async () => {
     
 }
 
-const getMainMenuTemplate = () => {
+const getMainMenuTemplate = async () => {
 
     
-    const result1 =  dataCategory();
+    const result1 = await dataCategory();
 
     // Arr = [...result1]
     console.log("----------");
@@ -283,7 +283,6 @@ const getMainMenuTemplate = () => {
             }
         }
     };
-    // console.log(response);
     return response;
 }
 
