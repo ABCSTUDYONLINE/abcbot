@@ -219,7 +219,7 @@ function toUpper(str) {
 }
 let dataCategory = async () => {
     try {
-        const res = await getCategories(1,10);
+        const res = await getCategories();
         // console.log(res.data.list);
         const datas = res.data.list;
         // console.log(datas)
@@ -253,6 +253,75 @@ let getMainMenuTemplate = async () => {
     let response = {
         text: 'Vui lòng chọn danh mục khóa học?',
         quick_replies: result2,
+    };
+    return response;
+}
+
+let handleSendSubCategory = (sender_psid,category) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = await getSubCategory(category);
+            await callSendAPI(sender_psid, response1);
+            resolve('done');
+        } catch (error) {
+            reject(e);
+        }
+    })
+}
+
+let dataSubCategory = async (category) => {
+    try {
+        const res = await getCategories();
+        // console.log(res.data.list);
+        const datas = res.data.list;
+        console.log(datas)
+
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+let getSubCategory = async (category) => {
+
+    const result1 = await dataSubCategory(category)
+
+    const result = [...result1]
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Javascript",
+                        "subtitle": "Các bài giảng về Javascript",
+                        "image_url": IMAGE_WEB_JS,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "Xem chi tiết",
+                                "payload": "VIEW_JAVASCRIPT",
+                            },
+
+                        ],
+                    },
+                    {
+                        "title": "ReactJS",
+                        "subtitle": "Các bài giảng về ReactJS",
+                        "image_url": IMAGE_WEB_REACTJS,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "Xem chi tiết",
+                                "payload": "VIEW_REACTJS",
+                            },
+
+                        ],
+                    },
+                ]
+            }
+        }
     };
     return response;
 }
@@ -1010,6 +1079,7 @@ let getDetailIOS = () => {
 module.exports = {
     handleGetStarted: handleGetStarted,
     handleSendCatalog: handleSendCatalog,
+    handleSendSubCategory: handleSendSubCategory,
     handleSendCatWeb: handleSendCatWeb,
     handleSendCatMobile: handleSendCatMobile,
     handleBackCatalog: handleBackCatalog,

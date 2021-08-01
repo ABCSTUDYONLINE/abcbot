@@ -1,8 +1,8 @@
 import API from './api'
 
-const getCategories = (params) => {
-    const {page,limit} = params;
-    return API.get(`/categories?page=${page}&limit=${limit}`).then(res => res.data)
+const getCategories = () => {
+    
+    return API.get(`/categories?page=1&limit=10`).then(res => res.data)
 }
 
 export {

@@ -79,13 +79,16 @@ async function handleMessage(sender_psid, received_message) {
     if(received_message.quick_reply && received_message.quick_reply.payload){
         if(received_message.quick_reply.payload === 'COURSE_SEARCH'){
             await chatbotService.handleSeachCourses(sender_psid);
+            return;
         }
         if(received_message.quick_reply.payload === 'COURSE_CATALOG'){
             await chatbotService.handleSendCatalog(sender_psid);
+            return;
         }
-        return;
         if(received_message.quick_reply.payload.includes('CATEGORY_')){
-            await chatbotService.handleSendCatalog(sender_psid);
+            const category = received_message.quick_reply.payload.substring(9)
+            await chatbotService.handleSendSubCategory(sender_psid, category);
+            return;
         }
     }    
     // Checks if the message contains text
