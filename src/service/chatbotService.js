@@ -229,83 +229,8 @@ const dataCategory = async () => {
     
 }
 
-const getMainMenuTemplate = () => {
+const getMainMenuTemplate = async () => {
 
-    const result1 = API.get('/categories?page=1&limit=7').
-    then(res => {
-        console.log("----------");
-        // console.log(res)
-        // console.log(res.data);
-        // console.log(res.data.data.list);
-        const result = res.data.data.list.map( (data,index) => {
-            return {
-                type: "postback",
-                title: data.levelCategory,
-                payload: "LEARN_"+`${data.levelCategory}`
-            }
-        });
-        console.log("AAAAAAAAAAAAA");
-        // console.log(result);
-        return result;
-        
-    }).then(
-        (result) => {
-            let Arr = [];
-            for (const i of result) {
-                // console.log("/////////");
-                // console.log(i);
-                Arr.push(i);
-            }
-            console.log("?????????");
-            console.log(Arr);
-            console.log(typeof(Arr));
-            let response = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [{
-                            "title": "CATALOG SOURSE",
-                            "subtitle": "Danh mục khóa học tại ABC Study Online",
-                            "image_url": IMAGE_GET_STARTED,
-                            "buttons": Arr.map((i,index) => {
-                                return  {
-                                    "type": "postback",
-                                    "title": index,
-                                    "payload": "LEARN_WEB",
-                                }
-                            }),
-                        },
-                        {
-                            "title": "WEBSITE",
-                            "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-                            "image_url": IMAGE_GET_STARTED,
-                            "buttons": [
-                                {
-                                    "type": "web_url",
-                                    "title": "Website",
-                                    "url": "https://abcchatbot.herokuapp.com/",
-                                    "webview_height_ratio": "full"
-                                },
-                                {
-                                    "type": "postback",
-                                    "title": "Trở về",
-                                    "payload": "BACK_MAIN",
-                                }
-        
-                            ],
-                        }
-                        ]
-                    }
-                }
-            };
-            // console.log(response);
-            return response;
-        }
-    ).
-    catch(err => console.log(err));
-    return result1;
-    
     // let Arr = [
     //     {
     //         "type": "postback",
@@ -313,47 +238,47 @@ const getMainMenuTemplate = () => {
     //         "payload": "LEARN_WEB",
     //     },
     // ]
-    // const result1 = dataCategory();
+    const result1 = await dataCategory();
 
-    // Arr = [...result1]
-    // console.log("----------");
-    // console.log(result1);
-    // let response = {
-    //     "attachment": {
-    //         "type": "template",
-    //         "payload": {
-    //             "template_type": "generic",
-    //             "elements": [{
-    //                 "title": "CATALOG SOURSE",
-    //                 "subtitle": "Danh mục khóa học tại ABC Study Online",
-    //                 "image_url": IMAGE_GET_STARTED,
-    //                 "buttons": Arr,
-    //             },
-    //             {
-    //                 "title": "WEBSITE",
-    //                 "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
-    //                 "image_url": IMAGE_GET_STARTED,
-    //                 "buttons": [
-    //                     {
-    //                         "type": "web_url",
-    //                         "title": "Website",
-    //                         "url": "https://abcchatbot.herokuapp.com/",
-    //                         "webview_height_ratio": "full"
-    //                     },
-    //                     {
-    //                         "type": "postback",
-    //                         "title": "Trở về",
-    //                         "payload": "BACK_MAIN",
-    //                     }
+    Arr = [...result1]
+    console.log("----------");
+    console.log(result1);
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "CATALOG SOURSE",
+                    "subtitle": "Danh mục khóa học tại ABC Study Online",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": Arr,
+                },
+                {
+                    "title": "WEBSITE",
+                    "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+                    "image_url": IMAGE_GET_STARTED,
+                    "buttons": [
+                        {
+                            "type": "web_url",
+                            "title": "Website",
+                            "url": "https://abcchatbot.herokuapp.com/",
+                            "webview_height_ratio": "full"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Trở về",
+                            "payload": "BACK_MAIN",
+                        }
 
-    //                 ],
-    //             }
-    //             ]
-    //         }
-    //     }
-    // };
-    // // console.log(response);
-    // return response;
+                    ],
+                }
+                ]
+            }
+        }
+    };
+    // console.log(response);
+    return response;
 }
 
 const handleSendCatWeb = (sender_psid) => {
