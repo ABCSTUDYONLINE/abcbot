@@ -229,7 +229,7 @@ let dataCategory = async () => {
         const result = catalog.map( (e) => {
             const item = {
                 content_type: 'text',
-                title: toUpper(e.levelCategory + "Development"),
+                title: toUpper(e.levelCategory +" " +"Development"),
                 payload: `CATEGORY_${e.levelCategory}`
             };
             return item;
