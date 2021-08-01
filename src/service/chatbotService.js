@@ -204,7 +204,7 @@ function Catalog(arr) {
     }
     return newArr
 }
-let arrData = [];
+// let arrData = [];
 const dataCategory = async () => {
     try {
         const res = await getCategories(1,7);
@@ -238,7 +238,7 @@ const dataCategory = async () => {
                 
             }
         });
-        arrData = result;
+        // arrData = result;
         return result;
     } catch (error) {
         console.log(error);
