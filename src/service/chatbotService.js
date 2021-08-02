@@ -246,10 +246,10 @@ let getMainMenuTemplate = async () => {
     const result1 = await dataCategory();
 
     // Arr = [...result1]
-    console.log("----------");
-    console.log(result1);
+    // console.log("----------");
+    // console.log(result1);
     const result2 = [...result1]
-    console.log(result2);
+    // console.log(result2);
     let response = {
         text: 'Vui lòng chọn danh mục khóa học?',
         quick_replies: result2,
@@ -274,24 +274,22 @@ let dataSubCategory = async (category) => {
         const res = await getCategories();
         // console.log(res.data.list);
         const datas = res.data.list;
-        console.log(datas)
+        // console.log(datas)
         let result = datas.map(e=>{
             if(e.levelCategory === category){
                 const item ={
-                        "title": e.categoryName,
-                        "subtitle": `Các khoá học về ${e.categoryName}`,
+                        title: e.categoryName,
+                        subtitle: `Các khoá học về ${e.categoryName}`,
                         // "image_url": IMAGE_WEB_JS,
-                        "buttons": [
+                        buttons: [
                             {
-                                "type": "postback",
-                                "title": "Xem chi tiết",
-                                "payload": `COURSES_DETAIL_${e.id}`,
+                                type: "postback",
+                                title: "Xem chi tiết",
+                                payload: `COURSES_DETAIL_${e.id}`,
                             },
 
                         ],
                 };
-                console.log("AAAAAAAA");
-                console.log(e);
                 return item;
             }
         })
@@ -306,7 +304,8 @@ let dataSubCategory = async (category) => {
 let getSubCategory = async (category) => {
 
     const result1 = await dataSubCategory(category)
-
+    console.log("AAAAAAAA");
+    console.log(result1.buttons);
     // const result = [...result1]
     console.log("//////");
     console.log(result1);
