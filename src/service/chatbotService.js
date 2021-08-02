@@ -398,7 +398,7 @@ let getSendTopic = async (courseId) =>{
     return response;
 }
 
-let handelSendLesson = (sender_psid,topicId) => {
+let handleSendLesson = (sender_psid,topicId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response1 = await getSendLesson(topicId);
@@ -464,7 +464,7 @@ module.exports = {
     handleSendSubCategory: handleSendSubCategory,
     handleSendCourses:handleSendCourses,
     handleSendTopic:handleSendTopic,
-    handelSendLesson:handelSendLesson,
+    handleSendLesson:handleSendLesson,
     handleBackCatalog: handleBackCatalog,
     handleBackMain: handleBackMain,
     handleBackWeb: handleBackWeb,
