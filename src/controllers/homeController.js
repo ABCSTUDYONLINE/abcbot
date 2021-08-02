@@ -148,6 +148,11 @@ async function handlePostback(sender_psid, received_postback) {
         await chatbotService.handleSendTopic(sender_psid, courseId)
         return;
     }
+    if(payload.includes('LESSONS_DETAIL_')){
+        const topicId = payload.substring(15)
+        await chatbotService.handleSendLesson(sender_psid, topicId)
+        return;
+    }
     let response;
     // Set the response based on the postback payload
     switch (payload) {

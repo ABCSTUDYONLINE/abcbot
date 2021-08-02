@@ -407,6 +407,51 @@ let getSendTopic = async (courseId) =>{
     return response;
 }
 
+let handelSendLesson = (sender_psid,topicId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = getSendLesson(topicId);
+            await callSendAPI(sender_psid, response1);
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let dataSendLesson = async (topicId) => {
+    const data = await getLessons(topicId);
+    const datas= data.data.list;
+        let arr = datas.filter(item =>{
+            return item.topic.id === topicId;//0b41ee69-1b46-471a-bd7c-746c8a50b785
+        })
+        const result = arr.map(e => {
+            const item ={
+                title: e.lessonName,
+                subtitle: e.lessonDescription,
+                image_url: e.videoLink,
+            }
+            return item;
+        })
+        return result;
+}
+
+let getSendLesson = async (topicId) => {
+    let result = await dataSendLesson(topicId);
+    console.log("//////");
+    console.log(result);
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": result,
+            }
+        }
+    }
+    return response;
+}
+
 let handleBackCatalog = async (sender_psid) => {
     await handleSendCatalog(sender_psid);
 }
@@ -423,492 +468,7 @@ let handleBackMobile = async (sender_psid) => {
     await handleSendCatMobile(sender_psid);
 }
 
-let handleDetailJavascript = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
 
-            let response1 = getDetailJavascript();
-            await callSendAPI(sender_psid, response1);
-
-            resolve('done');
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-
-let getDetailJavascript = () => {
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Tutorial 1",
-                    "subtitle": "Setup môi trường và cài đặt",
-                    "image_url": IMAGE_WEB_JS,
-
-                },
-                {
-                    "title": "Tutorial 2",
-                    "subtitle": "Khái niệm 1 và thực hành 1",
-                    "image_url": IMAGE_WEB_JS,
-
-                },
-                {
-                    "title": "Tutorial 3",
-                    "subtitle": "Khái niệm 2 và thực hành 2",
-                    "image_url": IMAGE_WEB_JS,
-
-                },
-                {
-                    "title": "Tutorial 4",
-                    "subtitle": "Khái niệm 3 và thực hành 3",
-                    "image_url": IMAGE_WEB_JS,
-
-                },
-                {
-                    "title": "Tutorial 5",
-                    "subtitle": "Khái niệm 4 và thực hành 4",
-                    "image_url": IMAGE_WEB_JS,
-
-                },
-                {
-                    "title": "Tutorial 6",
-                    "subtitle": "Khái niệm 5 và thực hành 5",
-                    "image_url": IMAGE_WEB_JS,
-
-                },
-                {
-                    "title": "Đăng ký",
-                    "subtitle": "Giá: 1.500.000VND",
-                    "image_url": IMAGE_WEB_JS,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Đăng Ký",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_WEB",
-                        },
-
-                    ],
-                }
-                ]
-            }
-        }
-    };
-    return response;
-}
-
-let handleDetailReactJS = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-
-            let response1 = getDetailReactJS();
-            await callSendAPI(sender_psid, response1);
-
-            resolve('done');
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-let getDetailReactJS = () => {
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Tutorial 1",
-                    "subtitle": "Setup môi trường và cài đặt",
-                    "image_url": IMAGE_WEB_REACTJS,
-
-                },
-                {
-                    "title": "Tutorial 2",
-                    "subtitle": "Khái niệm 1 và thực hành 1",
-                    "image_url": IMAGE_WEB_REACTJS,
-
-                },
-                {
-                    "title": "Tutorial 3",
-                    "subtitle": "Khái niệm 2 và thực hành 2",
-                    "image_url": IMAGE_WEB_REACTJS,
-
-                },
-                {
-                    "title": "Tutorial 4",
-                    "subtitle": "Khái niệm 3 và thực hành 3",
-                    "image_url": IMAGE_WEB_REACTJS,
-
-                },
-                {
-                    "title": "Tutorial 5",
-                    "subtitle": "Khái niệm 4 và thực hành 4",
-                    "image_url": IMAGE_WEB_REACTJS,
-
-                },
-                {
-                    "title": "Tutorial 6",
-                    "subtitle": "Khái niệm 5 và thực hành 5",
-                    "image_url": IMAGE_WEB_REACTJS,
-
-                },
-                {
-                    "title": "Đăng ký",
-                    "subtitle": "Giá: 3.500.000VND",
-                    "image_url": IMAGE_WEB_REACTJS,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Đăng Ký",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_WEB",
-                        },
-
-                    ],
-                }
-                ]
-            }
-        }
-    };
-    return response;
-}
-
-let handleDetailNodeJS = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-
-            let response1 = getDetailNodeJS();
-            await callSendAPI(sender_psid, response1);
-
-            resolve('done');
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-let getDetailNodeJS = () => {
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Tutorial 1",
-                    "subtitle": "Setup môi trường và cài đặt",
-                    "image_url": IMAGE_WEB_NODEJS,
-
-                },
-                {
-                    "title": "Tutorial 2",
-                    "subtitle": "Khái niệm 1 và thực hành 1",
-                    "image_url": IMAGE_WEB_NODEJS,
-
-                },
-                {
-                    "title": "Tutorial 3",
-                    "subtitle": "Khái niệm 2 và thực hành 2",
-                    "image_url": IMAGE_WEB_NODEJS,
-
-                },
-                {
-                    "title": "Tutorial 4",
-                    "subtitle": "Khái niệm 3 và thực hành 3",
-                    "image_url": IMAGE_WEB_NODEJS,
-
-                },
-                {
-                    "title": "Tutorial 5",
-                    "subtitle": "Khái niệm 4 và thực hành 4",
-                    "image_url": IMAGE_WEB_NODEJS,
-
-                },
-                {
-                    "title": "Tutorial 6",
-                    "subtitle": "Khái niệm 5 và thực hành 5",
-                    "image_url": IMAGE_WEB_NODEJS,
-
-                },
-                {
-                    "title": "Đăng ký",
-                    "subtitle": "Giá: 4.000.000VND",
-                    "image_url": IMAGE_WEB_NODEJS,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Đăng Ký",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_WEB",
-                        },
-
-                    ],
-                }
-                ]
-            }
-        }
-    };
-    return response;
-}
-
-let handleDetailAndroid = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-
-            let response1 = getDetailAndroid();
-            await callSendAPI(sender_psid, response1);
-
-            resolve('done');
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-let getDetailAndroid = () => {
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Tutorial 1",
-                    "subtitle": "Setup môi trường và cài đặt",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-
-                },
-                {
-                    "title": "Tutorial 2",
-                    "subtitle": "Khái niệm 1 và thực hành 1",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-
-                },
-                {
-                    "title": "Tutorial 3",
-                    "subtitle": "Khái niệm 2 và thực hành 2",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-
-                },
-                {
-                    "title": "Tutorial 4",
-                    "subtitle": "Khái niệm 3 và thực hành 3",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-
-                },
-                {
-                    "title": "Tutorial 5",
-                    "subtitle": "Khái niệm 4 và thực hành 4",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-
-                },
-                {
-                    "title": "Tutorial 6",
-                    "subtitle": "Khái niệm 5 và thực hành 5",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-
-                },
-                {
-                    "title": "Đăng ký",
-                    "subtitle": "Giá: 2.000.000VND",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Đăng Ký",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_WEB",
-                        },
-
-                    ],
-                }
-                ]
-            }
-        }
-    };
-    return response;
-}
-
-let handleDetailReactNative = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-
-            let response1 = getDetailReactNative();
-            await callSendAPI(sender_psid, response1);
-
-            resolve('done');
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-let getDetailReactNative = () => {
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Tutorial 1",
-                    "subtitle": "Setup môi trường và cài đặt",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-
-                },
-                {
-                    "title": "Tutorial 2",
-                    "subtitle": "Khái niệm 1 và thực hành 1",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-
-                },
-                {
-                    "title": "Tutorial 3",
-                    "subtitle": "Khái niệm 2 và thực hành 2",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-
-                },
-                {
-                    "title": "Tutorial 4",
-                    "subtitle": "Khái niệm 3 và thực hành 3",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-
-                },
-                {
-                    "title": "Tutorial 5",
-                    "subtitle": "Khái niệm 4 và thực hành 4",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-
-                },
-                {
-                    "title": "Tutorial 6",
-                    "subtitle": "Khái niệm 5 và thực hành 5",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-
-                },
-                {
-                    "title": "Đăng ký",
-                    "subtitle": "Giá: 2.000.000VND",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Đăng Ký",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_WEB",
-                        },
-
-                    ],
-                }
-                ]
-            }
-        }
-    };
-    return response;
-}
-
-let handleDetailIOS = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-
-            let response1 = getDetailIOS();
-            await callSendAPI(sender_psid, response1);
-
-            resolve('done');
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-let getDetailIOS = () => {
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Tutorial 1",
-                    "subtitle": "Setup môi trường và cài đặt",
-                    "image_url": IMAGE_MOBILE_IOS,
-
-                },
-                {
-                    "title": "Tutorial 2",
-                    "subtitle": "Khái niệm 1 và thực hành 1",
-                    "image_url": IMAGE_MOBILE_IOS,
-
-                },
-                {
-                    "title": "Tutorial 3",
-                    "subtitle": "Khái niệm 2 và thực hành 2",
-                    "image_url": IMAGE_MOBILE_IOS,
-
-                },
-                {
-                    "title": "Tutorial 4",
-                    "subtitle": "Khái niệm 3 và thực hành 3",
-                    "image_url": IMAGE_MOBILE_IOS,
-
-                },
-                {
-                    "title": "Tutorial 5",
-                    "subtitle": "Khái niệm 4 và thực hành 4",
-                    "image_url": IMAGE_MOBILE_IOS,
-
-                },
-                {
-                    "title": "Tutorial 6",
-                    "subtitle": "Khái niệm 5 và thực hành 5",
-                    "image_url": IMAGE_MOBILE_IOS,
-
-                },
-                {
-                    "title": "Đăng ký",
-                    "subtitle": "Giá: 2.000.000VND",
-                    "image_url": IMAGE_MOBILE_IOS,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Đăng Ký",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_WEB",
-                        },
-
-                    ],
-                }
-                ]
-            }
-        }
-    };
-    return response;
-}
 
 module.exports = {
     handleGetStarted: handleGetStarted,
@@ -916,14 +476,9 @@ module.exports = {
     handleSendSubCategory: handleSendSubCategory,
     handleSendCourses:handleSendCourses,
     handleSendTopic:handleSendTopic,
+    handelSendLesson:handelSendLesson,
     handleBackCatalog: handleBackCatalog,
     handleBackMain: handleBackMain,
-    handleDetailJavascript: handleDetailJavascript,
     handleBackWeb: handleBackWeb,
     handleBackMobile: handleBackMobile,
-    handleDetailReactJS: handleDetailReactJS,
-    handleDetailNodeJS: handleDetailNodeJS,
-    handleDetailAndroid: handleDetailAndroid,
-    handleDetailReactNative: handleDetailReactNative,
-    handleDetailIOS: handleDetailIOS,
 }
