@@ -305,7 +305,9 @@ let getSubCategory = async (category) => {
 
     const result1 = await dataSubCategory(category)
     console.log("AAAAAAAA");
-    console.log(result1.buttons);
+    result1.foreach(item => {
+        console.log(item.buttons);
+    })
     // const result = [...result1]
     console.log("//////");
     console.log(result1);
