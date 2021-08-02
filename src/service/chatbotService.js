@@ -255,12 +255,12 @@ let dataSubCategory = async (category) => {
     try {
         const res = await getCategories();
         const datas = res.data.list;
-        const arr = datas.fitler(item => {
+        let arr = datas.filter(item =>{
             return item.levelCategory === category;
         })
         console.log("/////");
         console.log(arr);
-        const result = arr.map(e => {
+        let result = arr.map(e => {
             const item ={
                 title: e.categoryName,
                 subtitle: `Các khoá học về ${e.categoryName}`,
