@@ -177,13 +177,13 @@ async function handlePostback(sender_psid, received_postback) {
             break;
 
         case 'BACK_SUB_CATEGORY':
-            await chatbotService.handleBackSubCategory(sender_psid);
+            await chatbotService.handleBackSubCategory(sender_psid,category);
             break;
         case 'BACK_COURSE':
-            await chatbotService.handleBackCourse(sender_psid);
+            await chatbotService.handleBackCourse(sender_psid,courseId);
             break;
         case 'BACK_TOPIC':
-            await chatbotService.handleBackTopic(sender_psid);
+            await chatbotService.handleBackTopic(sender_psid,courseId);
             break;
         default:
             // code block
