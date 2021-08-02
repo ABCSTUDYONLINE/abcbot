@@ -393,8 +393,6 @@ let dataSendTopic = async (courseId) => {
 
 let getSendTopic = async (courseId) =>{
     let result = await dataSendTopic(courseId);
-    console.log("//////");
-    console.log(result);
     let response = {
         "attachment": {
             "type": "template",
@@ -430,6 +428,14 @@ let dataSendLesson = async (topicId) => {
                 title: e.lessonName,
                 subtitle: e.lessonDescription,
                 image_url: e.videoLink,
+                buttons:[
+                    {
+                        type: "postback",
+                        title: "Xem chi tiết",
+                        payload: `VIEW_LESSONS_DETAIL_${e.id}`,
+                        
+                    }
+                ]
             }
             return item;
         })
