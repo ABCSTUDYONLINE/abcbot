@@ -323,7 +323,7 @@ let dataSendCourses = async (courseId) => {
                     {
                         type: "postback",
                         title: "Xem chi tiết",
-                        payload: `TOPICS_DETAIL_${e.id}`,
+                        payload: `TOPICS_DETAIL_${e.course.id}`,
                     }
                 ]
             }
