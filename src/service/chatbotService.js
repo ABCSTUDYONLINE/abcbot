@@ -258,8 +258,6 @@ let dataSubCategory = async (category) => {
         let arr = datas.filter(item =>{
             return item.levelCategory === category;
         })
-        console.log("/////");
-        console.log(arr);
         let result = arr.map(e => {
             const item ={
                 title: e.categoryName,
@@ -275,26 +273,7 @@ let dataSubCategory = async (category) => {
             };
             return item;
         })
-        // for(let i=0; i<datas.length; i++) {
-        //     if(datas[i].levelCategory === category){
-        //         const item ={
-        //                 title: datas[i].categoryName,
-        //                 subtitle: `Các khoá học về ${datas[i].categoryName}`,
-        //                 image_url: IMAGE_SUB_CATEGORY,
-        //                 buttons:[
-        //                     {
-        //                         type: "postback",
-        //                         title: "Xem chi tiết",
-        //                         payload: `COURSES_DETAIL_${datas[i].id}`,
-        //                     }
-        //                 ]
-        //         };
-        //         result.push(item);
-        //     }
-        // }
         return result;
-
-
     } catch (error) {
         console.log(error);
     }
@@ -303,8 +282,6 @@ let dataSubCategory = async (category) => {
 let getSubCategory = async (category) => {
 
     const result1 = await dataSubCategory(category)
-    console.log("AAAAAA");
-    console.log(result1);
     let response = {
         "attachment": {
             "type": "template",
@@ -332,7 +309,25 @@ let dataSendCourses = async (coursesId) => {
     try {
         const res = await getCourses();
         const datas = res.data.list;
-        let result = [];
+        let arr = datas.filter(item => {
+            return item.category.id === coursesId;
+        })
+        const result = arr.map(e => {
+            const item ={
+                title: e.courseName,
+                subtitle: e.shortCourseDescription,
+                image_url: e.courseImageLink,
+                buttons:[
+                    {
+                        type: "postback",
+                        title: "Xem chi tiết",
+                        payload: `SUB_COURSES_DETAIL_${e.id}`,
+                    }
+                ]
+            }
+            return item;
+        })
+        return result;
 
     } catch (error) {
         
@@ -342,8 +337,15 @@ let dataSendCourses = async (coursesId) => {
 
 let getSendCourses = async (coursesId) => {
 
+    let result = await getCourses(coursesId);
     let response = {
-
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": result,
+            }
+        }
     }
     return response;
 }

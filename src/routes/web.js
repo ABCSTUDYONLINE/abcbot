@@ -15,26 +15,26 @@ const initWebRoutes = (app) => {
     router.post('/webhook', homeController.postWebhook);
     router.get('/webhook', homeController.getWebhook);
     router.get('/test', async (req, res) => {
-        const data = await getCategories();
-        // const data = await getCourses();
+        // const data = await getCategories();
+        const data = await getCourses();
         // return res.json(data.data.list);
         const datas= data.data.list;
-        const arr = "CATEGORY_mobile";
-        const arr1= arr.substring(9);
+        const arr = "COURSES_DETAIL_e1077695-018d-4bc5-82c8-1a4db0a6d977";
+        const arr1= arr.substring(15);
         console.log(arr1);
         let result = datas.filter(item =>{
-            return item.levelCategory === arr1;
+            return item.category.id === arr1;
         })
         const arr2 = result.map(e => {
             const item ={
-                title: e.categoryName,
-                subtitle: `Các khoá học về ${e.categoryName}`,
+                title: e.courseName,
+                subtitle: e.shortCourseDescription,
                 // image_url: IMAGE_SUB_CATEGORY,
                 buttons:[
                     {
                         type: "postback",
                         title: "Xem chi tiết",
-                        payload: `COURSES_DETAIL_${e.id}`,
+                        payload: `SUB_COURSES_DETAIL_${e.id}`,
                     }
                 ]
             }
