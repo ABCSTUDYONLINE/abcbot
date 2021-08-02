@@ -291,7 +291,30 @@ let dataSubCategory = async (category) => {
                 return item;
             }
         })
-        return result;
+        return [
+            {
+                title: "Reactjs",
+                subtitle: "Các khoá học về Reactjs",
+                // "image_url": IMAGE_WEB_JS,
+                buttons:
+                    {
+                        type: "postback",
+                        title: "Xem chi tiết",
+                        payload: COURSES_REACTJS,
+                    }
+            },
+            {
+                title: "Nodejs",
+                subtitle: "Các khoá học về Nodejs",
+                // "image_url": IMAGE_WEB_JS,
+                buttons:
+                    {
+                        type: "postback",
+                        title: "Xem chi tiết",
+                        payload: "COURSES_DETAIL",
+                    }
+            }
+            ];
 
 
     } catch (error) {
