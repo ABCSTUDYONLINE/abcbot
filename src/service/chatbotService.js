@@ -305,9 +305,6 @@ let getSubCategory = async (category) => {
     console.log("AAAAAAAA");
     console.log(result1);
     console.log("//////");
-    result1.foreach(item => {
-        console.log(item.buttons);
-    })
     // const result = [...result1]
     
     let response = {
