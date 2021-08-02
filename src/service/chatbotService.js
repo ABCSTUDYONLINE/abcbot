@@ -357,7 +357,7 @@ let getSendCourses = async (courseId) => {
 let handleSendTopic = (sender_psid,courseId) =>{
     return new Promise(async (resolve, reject) => {
         try {
-            let response1 = getSendTopic(courseId);
+            let response1 = await getSendTopic(courseId);
             await callSendAPI(sender_psid, response1);
             resolve('done');
         } catch (e) {
@@ -408,7 +408,7 @@ let getSendTopic = async (courseId) =>{
 let handelSendLesson = (sender_psid,topicId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response1 = getSendLesson(topicId);
+            let response1 = await getSendLesson(topicId);
             await callSendAPI(sender_psid, response1);
             resolve('done');
         } catch (e) {
@@ -436,8 +436,6 @@ let dataSendLesson = async (topicId) => {
 
 let getSendLesson = async (topicId) => {
     let result = await dataSendLesson(topicId);
-    console.log("//////");
-    console.log(result);
     let response = {
         "attachment": {
             "type": "template",
