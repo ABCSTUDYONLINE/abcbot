@@ -426,8 +426,8 @@ let dataSendLesson = async (topicId) => {
         const result = arr.map(e => {
             const item ={
                 title: e.lessonName,
-                subtitle: e.lessonDescription,
-                image_url: e.videoLink
+                // subtitle: e.lessonDescription,
+                // image_url: e.videoLink
             }
             return item;
         })
