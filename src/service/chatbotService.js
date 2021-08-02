@@ -390,6 +390,8 @@ let dataSendTopic = async (courseId) => {
 
 let getSendTopic = async (courseId) =>{
     let result = await dataSendTopic(courseId);
+    console.log("//////");
+    console.log(result);
     let response = {
         "attachment": {
             "type": "template",
