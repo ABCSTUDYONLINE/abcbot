@@ -336,12 +336,33 @@ let dataSendCourses = async (courseId) => {
 let getSendCourses = async (courseId) => {
 
     let result = await dataSendCourses(courseId);
+    let result2=[...result,...[
+        {
+            "title": "Other",
+            "subtitle": "",
+            "image_url": IMAGE_BACK,
+            "buttons": [
+                {
+                    "type": "web_url",
+                    "title": "Truy cập web",
+                    "url": "https://abcstudyonline.netlify.app",
+                    "webview_height_ratio": "full"
+                },
+                {
+                    "type": "postback",
+                    "title": "Trở về",
+                    "payload": "BACK_SUB_CATEGORY",
+                }
+
+            ],
+        }
+    ]]
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result,
+                "elements": result2,
             }
         }
     }
@@ -387,12 +408,33 @@ let dataSendTopic = async (courseId) => {
 
 let getSendTopic = async (courseId) =>{
     let result = await dataSendTopic(courseId);
+    let result2=[...result,...[
+        {
+            "title": "Other",
+            "subtitle": "",
+            "image_url": IMAGE_BACK,
+            "buttons": [
+                {
+                    "type": "web_url",
+                    "title": "Truy cập web",
+                    "url": "https://abcstudyonline.netlify.app",
+                    "webview_height_ratio": "full"
+                },
+                {
+                    "type": "postback",
+                    "title": "Trở về",
+                    "payload": "BACK_COURSE",
+                }
+
+            ],
+        }
+    ]]
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result,
+                "elements": result2,
             }
         }
     }
@@ -462,16 +504,16 @@ let getSendLesson = async (topicId) => {
     return response;
 }
 
-let handleBackSubCategory = async (sender_psid , category) => {
-    await handleSendCatalog(sender_psid , category);
+let handleBackSubCategory = async (sender_psid) => {
+    await handleSendCatalog(sender_psid);
 }
 
-let handleBackCourse = async (sender_psid , courseId) => {
-    await handleSendCourses(sender_psid , courseId);
+let handleBackCourse = async (sender_psid) => {
+    await handleSendCourses(sender_psid);
 }
 
-let handleBackTopic = async (sender_psid, courseId) => {
-    await handleSendTopic(sender_psid, courseId);
+let handleBackTopic = async (sender_psid) => {
+    await handleSendTopic(sender_psid);
 }
 
 
