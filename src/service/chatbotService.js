@@ -255,10 +255,11 @@ let dataSubCategory = async (category) => {
     try {
         const res = await getCategories();
         const datas = res.data.list;
-        // let result = [];
         const arr = datas.fitler(item => {
             return item.levelCategory === category;
         })
+        console.log("/////");
+        console.log(arr);
         const result = arr.map(e => {
             const item ={
                 title: e.categoryName,
@@ -302,6 +303,8 @@ let dataSubCategory = async (category) => {
 let getSubCategory = async (category) => {
 
     const result1 = await dataSubCategory(category)
+    console.log("AAAAAA");
+    console.log(result1);
     let response = {
         "attachment": {
             "type": "template",
