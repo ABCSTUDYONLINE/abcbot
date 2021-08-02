@@ -11,6 +11,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const IMAGE_GET_STARTED = 'https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/giphy.gif';
 const IMAGE_SUB_CATEGORY = 'https://bit.ly/subcategory';
 const IMAGE_LESSON = 'https://bit.ly/imagelesson';
+const IMAGE_BACK = 'https://bit.ly/backbot';
 
 
 
@@ -428,32 +429,49 @@ let dataSendLesson = async (topicId) => {
 
 let getSendLesson = async (topicId) => {
     let result = await dataSendLesson(topicId);
+    let result2=[...result,...[
+        {
+            "title": "Other",
+            "subtitle": "",
+            "image_url": IMAGE_BACK,
+            "buttons": [
+                {
+                    "type": "web_url",
+                    "title": "Truy cập web",
+                    "url": "https://abcstudyonline.netlify.app",
+                    "webview_height_ratio": "full"
+                },
+                {
+                    "type": "postback",
+                    "title": "Trở về",
+                    "payload": "BACK_TOPIC",
+                }
+
+            ],
+        }
+    ]]
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result,
+                "elements": result2,
             }
         }
     }
     return response;
 }
 
-let handleBackCatalog = async (sender_psid) => {
-    await handleSendCatalog(sender_psid);
+let handleBackSubCategory = async (sender_psid , category) => {
+    await handleSendCatalog(sender_psid , category);
 }
 
-let handleBackMain = async (sender_psid) => {
-    let response2 = getStartedTemplate();
-    await callSendAPI(sender_psid, response2);
-}
-let handleBackWeb = async (sender_psid) => {
-    await handleSendCatWeb(sender_psid);
+let handleBackCourse = async (sender_psid , courseId) => {
+    await handleSendCourses(sender_psid , courseId);
 }
 
-let handleBackMobile = async (sender_psid) => {
-    await handleSendCatMobile(sender_psid);
+let handleBackTopic = async (sender_psid, courseId) => {
+    await handleSendTopic(sender_psid, courseId);
 }
 
 
@@ -465,8 +483,7 @@ module.exports = {
     handleSendCourses:handleSendCourses,
     handleSendTopic:handleSendTopic,
     handleSendLesson:handleSendLesson,
-    handleBackCatalog: handleBackCatalog,
-    handleBackMain: handleBackMain,
-    handleBackWeb: handleBackWeb,
-    handleBackMobile: handleBackMobile,
+    handleBackSubCategory: handleBackSubCategory,
+    handleBackCourse: handleBackCourse,
+    handleBackTopic: handleBackTopic,
 }
