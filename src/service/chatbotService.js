@@ -337,7 +337,7 @@ let dataSendCourses = async (coursesId) => {
 
 let getSendCourses = async (coursesId) => {
 
-    let result = await getCourses(coursesId);
+    let result = await dataSendCourses(coursesId);
     let response = {
         "attachment": {
             "type": "template",
