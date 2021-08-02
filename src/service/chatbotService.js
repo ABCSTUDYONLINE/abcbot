@@ -300,7 +300,7 @@ let dataSubCategory = async (category) => {
                     {
                         type: "postback",
                         title: "Xem chi tiết",
-                        payload: COURSES_REACTJS,
+                        payload: "COURSES_REACTJS",
                     }
             },
             {
@@ -314,7 +314,7 @@ let dataSubCategory = async (category) => {
                         payload: "COURSES_DETAIL",
                     }
             }
-            ];
+        ];
 
 
     } catch (error) {
