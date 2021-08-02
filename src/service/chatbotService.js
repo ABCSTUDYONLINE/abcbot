@@ -225,7 +225,7 @@ let dataCategory = async () => {
         // console.log(datas)
 
         const catalog = Catalog(datas);
-        console.log(catalog);
+        // console.log(catalog);
         const result = catalog.map( (e) => {
             const item = {
                 content_type: 'text',
@@ -296,23 +296,23 @@ let dataSubCategory = async (category) => {
                 title: "Reactjs",
                 subtitle: "Các khoá học về Reactjs",
                 // "image_url": IMAGE_WEB_JS,
-                buttons:
+                buttons:[
                     {
                         type: "postback",
                         title: "Xem chi tiết",
                         payload: "COURSES_REACTJS",
-                    }
+                    }]
             },
             {
                 title: "Nodejs",
                 subtitle: "Các khoá học về Nodejs",
                 // "image_url": IMAGE_WEB_JS,
-                buttons:
+                buttons:[
                     {
                         type: "postback",
                         title: "Xem chi tiết",
                         payload: "COURSES_DETAIL",
-                    }
+                    }]
             }
         ];
 
