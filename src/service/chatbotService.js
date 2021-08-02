@@ -504,15 +504,18 @@ let getSendLesson = async (topicId) => {
     return response;
 }
 
-let handleBackSubCategory = async (sender_psid,category) => {
+let handleBackSubCategory = async (sender_psid) => {
+    let category;
     await handleSendSubCategory(sender_psid,category);
 }
 
-let handleBackCourse = async (sender_psid,courseId) => {
+let handleBackCourse = async (sender_psid) => {
+    let courseId;
     await handleSendCourses(sender_psid,courseId);
 }
 
-let handleBackTopic = async (sender_psid,courseId) => {
+let handleBackTopic = async (sender_psid) => {
+    let courseId;
     await handleSendTopic(sender_psid,courseId);
 }
 
