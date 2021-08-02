@@ -317,7 +317,7 @@ let dataSendCourses = async (courseId) => {
         })
         const result = arr.map(e => {
             const item ={
-                title: `${e.courseName}` - `${e.fee}$`,
+                title: `${e.courseName} - Fee: ${e.fee} $`,
                 subtitle: e.shortCourseDescription,
                 image_url: e.courseImageLink,
                 buttons:[
