@@ -281,40 +281,18 @@ let dataSubCategory = async (category) => {
                         title: e.categoryName,
                         subtitle: `Các khoá học về ${e.categoryName}`,
                         // "image_url": IMAGE_WEB_JS,
-                        buttons:
+                        buttons:[
                             {
                                 type: "postback",
                                 title: "Xem chi tiết",
                                 payload: `COURSES_DETAIL_${e.id}`,
                             }
+                        ]
                 };
                 return item;
             }
         })
-        return [
-            {
-                title: "Reactjs",
-                subtitle: "Các khoá học về Reactjs",
-                // "image_url": IMAGE_WEB_JS,
-                buttons:[
-                    {
-                        type: "postback",
-                        title: "Xem chi tiết",
-                        payload: "COURSES_REACTJS",
-                    }]
-            },
-            {
-                title: "Nodejs",
-                subtitle: "Các khoá học về Nodejs",
-                // "image_url": IMAGE_WEB_JS,
-                buttons:[
-                    {
-                        type: "postback",
-                        title: "Xem chi tiết",
-                        payload: "COURSES_DETAIL",
-                    }]
-            }
-        ];
+        return result;
 
 
     } catch (error) {
