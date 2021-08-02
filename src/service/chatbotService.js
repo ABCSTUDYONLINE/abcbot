@@ -10,15 +10,8 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 const IMAGE_GET_STARTED = 'https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/giphy.gif';
 const IMAGE_SUB_CATEGORY = 'https://bit.ly/subcategory';
+const IMAGE_LESSON = 'https://bit.ly/imagelesson';
 
-
-const IMAGE_WEB_REACTJS = 'http://bit.ly/bot_reactjs';
-const IMAGE_WEB_NODEJS = 'http://bit.ly/bot_nodejs';
-
-
-const IMAGE_MOBILE_ANDROID = 'http://bit.ly/bot_android';
-const IMAGE_MOBILE_REACTNATIVE = 'http://bit.ly/bot_reactnative';
-const IMAGE_MOBILE_IOS = 'http://bit.ly/bot-ios-1';
 
 
 
@@ -426,8 +419,7 @@ let dataSendLesson = async (topicId) => {
         const result = arr.map(e => {
             const item ={
                 title: e.lessonName,
-                subtitle: e.lessonDescription,
-                image_url: e.videoLink
+                image_url: IMAGE_LESSON,
             }
             return item;
         })
