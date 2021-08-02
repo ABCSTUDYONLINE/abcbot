@@ -1,6 +1,5 @@
 require('dotenv').config();
 import request from "request";
-import API from "../utils/api";
 import {getCategories} from '../utils/categoryApi';
 import {getCourses,findCourses} from '../utils/courseApi';
 import {getTopics} from '../utils/topicApi';
@@ -12,8 +11,6 @@ const IMAGE_GET_STARTED = 'https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/gip
 const IMAGE_SUB_CATEGORY = 'https://bit.ly/subcategory';
 const IMAGE_LESSON = 'https://bit.ly/imagelesson';
 const IMAGE_BACK = 'https://bit.ly/backbot';
-
-
 
 
 let callSendAPI = async (sender_psid, response) => {
@@ -336,33 +333,12 @@ let dataSendCourses = async (courseId) => {
 let getSendCourses = async (courseId) => {
 
     let result = await dataSendCourses(courseId);
-    let result2=[...result,...[
-        {
-            "title": "Other",
-            "subtitle": "",
-            "image_url": IMAGE_BACK,
-            "buttons": [
-                {
-                    "type": "web_url",
-                    "title": "Truy cập web",
-                    "url": "https://abcstudyonline.netlify.app",
-                    "webview_height_ratio": "full"
-                },
-                {
-                    "type": "postback",
-                    "title": "Trở về",
-                    "payload": "BACK_SUB_CATEGORY",
-                }
-
-            ],
-        }
-    ]]
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result2,
+                "elements": result,
             }
         }
     }
@@ -408,33 +384,12 @@ let dataSendTopic = async (courseId) => {
 
 let getSendTopic = async (courseId) =>{
     let result = await dataSendTopic(courseId);
-    let result2=[...result,...[
-        {
-            "title": "Other",
-            "subtitle": "",
-            "image_url": IMAGE_BACK,
-            "buttons": [
-                {
-                    "type": "web_url",
-                    "title": "Truy cập web",
-                    "url": "https://abcstudyonline.netlify.app",
-                    "webview_height_ratio": "full"
-                },
-                {
-                    "type": "postback",
-                    "title": "Trở về",
-                    "payload": "BACK_COURSE",
-                }
-
-            ],
-        }
-    ]]
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result2,
+                "elements": result,
             }
         }
     }
@@ -471,55 +426,17 @@ let dataSendLesson = async (topicId) => {
 
 let getSendLesson = async (topicId) => {
     let result = await dataSendLesson(topicId);
-    let result2=[...result,...[
-        {
-            "title": "Other",
-            "subtitle": "",
-            "image_url": IMAGE_BACK,
-            "buttons": [
-                {
-                    "type": "web_url",
-                    "title": "Truy cập web",
-                    "url": "https://abcstudyonline.netlify.app",
-                    "webview_height_ratio": "full"
-                },
-                {
-                    "type": "postback",
-                    "title": "Trở về",
-                    "payload": "BACK_TOPIC",
-                }
-
-            ],
-        }
-    ]]
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result2,
+                "elements": result,
             }
         }
     }
     return response;
 }
-
-let handleBackSubCategory = async (sender_psid) => {
-    let category;
-    await handleSendSubCategory(sender_psid,category);
-}
-
-let handleBackCourse = async (sender_psid) => {
-    let courseId;
-    await handleSendCourses(sender_psid,courseId);
-}
-
-let handleBackTopic = async (sender_psid) => {
-    let courseId;
-    await handleSendTopic(sender_psid,courseId);
-}
-
-
 
 module.exports = {
     handleGetStarted: handleGetStarted,
@@ -528,7 +445,4 @@ module.exports = {
     handleSendCourses:handleSendCourses,
     handleSendTopic:handleSendTopic,
     handleSendLesson:handleSendLesson,
-    handleBackSubCategory: handleBackSubCategory,
-    handleBackCourse: handleBackCourse,
-    handleBackTopic: handleBackTopic,
 }
