@@ -281,14 +281,12 @@ let dataSubCategory = async (category) => {
                         title: e.categoryName,
                         subtitle: `Các khoá học về ${e.categoryName}`,
                         // "image_url": IMAGE_WEB_JS,
-                        buttons: [
+                        buttons:
                             {
                                 type: "postback",
                                 title: "Xem chi tiết",
                                 payload: `COURSES_DETAIL_${e.id}`,
-                            },
-
-                        ],
+                            }
                 };
                 return item;
             }
@@ -305,12 +303,13 @@ let getSubCategory = async (category) => {
 
     const result1 = await dataSubCategory(category)
     console.log("AAAAAAAA");
+    console.log(result1);
+    console.log("//////");
     result1.foreach(item => {
         console.log(item.buttons);
     })
     // const result = [...result1]
-    console.log("//////");
-    console.log(result1);
+    
     let response = {
         "attachment": {
             "type": "template",
