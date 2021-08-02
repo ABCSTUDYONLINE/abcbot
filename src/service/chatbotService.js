@@ -3,6 +3,8 @@ import request from "request";
 import API from "../utils/api";
 import {getCategories} from '../utils/categoryApi';
 import {getCourses,findCourses} from '../utils/courseApi';
+import {getTopics} from '../utils/topicApi';
+import {getLessons} from '../utils/lessonApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
@@ -294,10 +296,10 @@ let getSubCategory = async (category) => {
     return response;
 }
 
-let handleSendCourses = (sender_psid, coursesId) => {
+let handleSendCourses = (sender_psid, courseId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response1 = await getSendCourses(coursesId);
+            let response1 = await getSendCourses(courseId);
             await callSendAPI(sender_psid, response1);
             resolve('done');
         } catch (error) {
@@ -305,12 +307,12 @@ let handleSendCourses = (sender_psid, coursesId) => {
         }
     })
 }
-let dataSendCourses = async (coursesId) => {
+let dataSendCourses = async (courseId) => {
     try {
         const res = await getCourses();
         const datas = res.data.list;
         let arr = datas.filter(item => {
-            return item.category.id === coursesId;
+            return item.category.id === courseId;
         })
         const result = arr.map(e => {
             const item ={
@@ -321,7 +323,7 @@ let dataSendCourses = async (coursesId) => {
                     {
                         type: "postback",
                         title: "Xem chi tiết",
-                        payload: `SUB_COURSES_DETAIL_${e.id}`,
+                        payload: `TOPICS_DETAIL_${e.id}`,
                     }
                 ]
             }
@@ -335,9 +337,9 @@ let dataSendCourses = async (coursesId) => {
 }
 
 
-let getSendCourses = async (coursesId) => {
+let getSendCourses = async (courseId) => {
 
-    let result = await dataSendCourses(coursesId);
+    let result = await dataSendCourses(courseId);
     let response = {
         "attachment": {
             "type": "template",
@@ -350,10 +352,10 @@ let getSendCourses = async (coursesId) => {
     return response;
 }
 
-let handleSendCatWeb = (sender_psid) => {
+let handleSendTopic = (sender_psid,courseId) =>{
     return new Promise(async (resolve, reject) => {
         try {
-            let response1 = getCatWeb();
+            let response1 = getSendTopic(courseId);
             await callSendAPI(sender_psid, response1);
             resolve('done');
         } catch (e) {
@@ -362,238 +364,41 @@ let handleSendCatWeb = (sender_psid) => {
     })
 }
 
-let getCatWeb = () => {
+let dataSendTopic = async (courseId) => {
+    const data = await getTopics(courseId);
+    const datas= data.data.list;
+        let arr = datas.filter(item =>{
+            return item.course.id === courseId;
+        })
+        const result = arr.map(e => {
+            const item ={
+                title: e.topicName,
+                // subtitle: e.shortCourseDescription,
+                image_url: e.course.courseImageLink,
+                buttons:[
+                    {
+                        type: "postback",
+                        title: "Xem chi tiết",
+                        payload: `LESSONS_DETAIL_${e.id}`,
+                    }
+                ]
+            }
+            return item;
+        })
+        return result;
+}
+
+let getSendTopic = async (courseId) =>{
+    let result = await dataSendTopic(courseId);
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": [{
-                    "title": "Javascript",
-                    "subtitle": "Các bài giảng về Javascript",
-                    "image_url": IMAGE_WEB_JS,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_JAVASCRIPT",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "ReactJS",
-                    "subtitle": "Các bài giảng về ReactJS",
-                    "image_url": IMAGE_WEB_REACTJS,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_REACTJS",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "NodeJS",
-                    "subtitle": "Các bài giảng về NodeJS",
-                    "image_url": IMAGE_WEB_NODEJS,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_NODEJS",
-                        },
-
-                    ],
-                },
-                /* {
-                    "title": "PHP",
-                    "subtitle": "Các bài giảng về PHP",
-                    "image_url": IMAGE_WEB_PHP,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_PHP",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "VueJS",
-                    "subtitle": "Các bài giảng về VueJS",
-                    "image_url": IMAGE_WEB_VUEJS,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_VUEJS",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "Angular",
-                    "subtitle": "Các bài giảng về Angular",
-                    "image_url": IMAGE_WEB_ANGULAR,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_ANGULAR",
-                        },
-
-                    ],
-                }, */
-                {
-                    "title": "Other",
-                    "subtitle": "",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Truy cập web",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_CATALOG",
-                        }
-
-                    ],
-                }
-                ]
+                "elements": result,
             }
         }
-    };
-    return response;
-}
-
-let handleSendCatMobile = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-
-            let response1 = getCatMobile();
-            await callSendAPI(sender_psid, response1);
-
-
-            resolve('done');
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-
-let getCatMobile = () => {
-    let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Android",
-                    "subtitle": "Các bài giảng về Android",
-                    "image_url": IMAGE_MOBILE_ANDROID,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_ANDROID",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "React Native",
-                    "subtitle": "Các bài giảng về React Native",
-                    "image_url": IMAGE_MOBILE_REACTNATIVE,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_REACT_NATIVE",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "IOS",
-                    "subtitle": "Các bài giảng về IOS",
-                    "image_url": IMAGE_MOBILE_IOS,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_IOS",
-                        },
-
-                    ],
-                },
-                /* {
-                    "title": "Flutter",
-                    "subtitle": "Các bài giảng về Flutter",
-                    "image_url": IMAGE_MOBILE_FLUTTER,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_FLUTTER",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "Kotlin",
-                    "subtitle": "Các bài giảng về Kotlin",
-                    "image_url": IMAGE_MOBILE_KOTLIN,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_KOTLIN",
-                        },
-
-                    ],
-                },
-                {
-                    "title": "Swift",
-                    "subtitle": "Các bài giảng về Swift",
-                    "image_url": IMAGE_MOBILE_SWIFT,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "Xem chi tiết",
-                            "payload": "VIEW_SWIFT",
-                        },
-
-                    ],
-                }, */
-                {
-                    "title": "Other",
-                    "subtitle": "",
-                    "image_url": IMAGE_GET_STARTED,
-                    "buttons": [
-                        {
-                            "type": "web_url",
-                            "title": "Truy cập web",
-                            "url": "https://abcchatbot.herokuapp.com/",
-                            "webview_height_ratio": "full"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "Trở về",
-                            "payload": "BACK_CATALOG",
-                        }
-
-                    ],
-                }
-                ]
-            }
-        }
-    };
+    }
     return response;
 }
 
@@ -1105,8 +910,7 @@ module.exports = {
     handleSendCatalog: handleSendCatalog,
     handleSendSubCategory: handleSendSubCategory,
     handleSendCourses:handleSendCourses,
-    handleSendCatWeb: handleSendCatWeb,
-    handleSendCatMobile: handleSendCatMobile,
+    handleSendTopic:handleSendTopic,
     handleBackCatalog: handleBackCatalog,
     handleBackMain: handleBackMain,
     handleDetailJavascript: handleDetailJavascript,

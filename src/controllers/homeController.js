@@ -139,8 +139,13 @@ async function handlePostback(sender_psid, received_postback) {
     let payload = received_postback.payload;
 
     if(payload.includes('COURSES_DETAIL_')){
-        const coursesId = payload.substring(15)
-        await chatbotService.handleSendCourses(sender_psid, coursesId)
+        const courseId = payload.substring(15)
+        await chatbotService.handleSendCourses(sender_psid, courseId)
+        return;
+    }
+    if(payload.includes('TOPICS_DETAIL_')){
+        const courseId = payload.substring(14)
+        await chatbotService.handleSendTopic(sender_psid, courseId)
         return;
     }
     let response;

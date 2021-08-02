@@ -2,6 +2,8 @@ import express from "express";
 import homeController from "../controllers/homeController";
 import {getCategories} from '../utils/categoryApi';
 import {getCourses} from '../utils/courseApi';
+import {getTopics} from '../utils/topicApi';
+import {getLessons} from '../utils/lessonApi';
 
 const router = express.Router();
 const initWebRoutes = (app) => {
@@ -16,34 +18,40 @@ const initWebRoutes = (app) => {
     router.get('/webhook', homeController.getWebhook);
     router.get('/test', async (req, res) => {
         // const data = await getCategories();
-        const data = await getCourses();
+        // const data = await getCourses();
+        
+        // const data = await getLessons(topicId);
         // return res.json(data.data.list);
+        
+        const payload = "TOPICS_DETAIL_8ecb41e5-39b0-48e3-897c-7042303a6217";
+        const courseId= payload.substring(14);
+        console.log(courseId);
+        const data = await getTopics(courseId);
         const datas= data.data.list;
-        const arr = "COURSES_DETAIL_e1077695-018d-4bc5-82c8-1a4db0a6d977";
-        const arr1= arr.substring(15);
-        console.log(arr1);
         let result = datas.filter(item =>{
-            return item.category.id === arr1;
+            return item.course.id === courseId;
         })
+        console.log("////");
+        console.log(result);
         const arr2 = result.map(e => {
             const item ={
-                title: e.courseName,
-                subtitle: e.shortCourseDescription,
-                // image_url: IMAGE_SUB_CATEGORY,
+                title: e.topicName,
+                // subtitle: e.shortCourseDescription,
+                image_url: e.course.courseImageLink,
                 buttons:[
                     {
                         type: "postback",
                         title: "Xem chi tiết",
-                        payload: `SUB_COURSES_DETAIL_${e.id}`,
+                        payload: `LESSONS_DETAIL_${e.id}`,
                     }
                 ]
             }
             return item;
         })
         // return result;
+        console.log("AAAAAA");
         console.log(arr2);
-        console.log("////");
-        console.log(result);
+        
     })
 
     return app.use('/', router);
