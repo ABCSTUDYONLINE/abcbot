@@ -275,6 +275,25 @@ let dataSubCategory = async (category) => {
         // console.log(res.data.list);
         const datas = res.data.list;
         console.log(datas)
+        let result = datas.map(e=>{
+            if(e.levelCategory === category){
+                const item ={
+                        "title": e.categoryName,
+                        "subtitle": `Các khoá học về ${e.categoryName}`,
+                        // "image_url": IMAGE_WEB_JS,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "Xem chi tiết",
+                                "payload": `COURSES_DETAIL_${e.id}`,
+                            },
+
+                        ],
+                };
+                return item;
+            }
+        })
+        return result;
 
 
     } catch (error) {
@@ -292,34 +311,7 @@ let getSubCategory = async (category) => {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": [
-                    {
-                        "title": "Javascript",
-                        "subtitle": "Các bài giảng về Javascript",
-                        "image_url": IMAGE_WEB_JS,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Xem chi tiết",
-                                "payload": "VIEW_JAVASCRIPT",
-                            },
-
-                        ],
-                    },
-                    {
-                        "title": "ReactJS",
-                        "subtitle": "Các bài giảng về ReactJS",
-                        "image_url": IMAGE_WEB_REACTJS,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Xem chi tiết",
-                                "payload": "VIEW_REACTJS",
-                            },
-
-                        ],
-                    },
-                ]
+                "elements": result,
             }
         }
     };
