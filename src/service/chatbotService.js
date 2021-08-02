@@ -290,6 +290,8 @@ let dataSubCategory = async (category) => {
 
                         ],
                 };
+                console.log("AAAAAAAA");
+                console.log(e);
                 return item;
             }
         })
@@ -305,13 +307,15 @@ let getSubCategory = async (category) => {
 
     const result1 = await dataSubCategory(category)
 
-    const result = [...result1]
+    // const result = [...result1]
+    console.log("//////");
+    console.log(result1);
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result,
+                "elements": result1,
             }
         }
     };
