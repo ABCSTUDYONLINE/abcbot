@@ -317,7 +317,7 @@ let dataSendCourses = async (courseId) => {
         })
         const result = arr.map(e => {
             const item ={
-                title: e.courseName,
+                title: `${e.courseName}` - `${e.fee}$`,
                 subtitle: e.shortCourseDescription,
                 image_url: e.courseImageLink,
                 buttons:[
@@ -373,7 +373,7 @@ let dataSendTopic = async (courseId) => {
             return item.course.id === courseId;//8ecb41e5-39b0-48e3-897c-7042303a6217
         })
         const result = arr.map(e => {
-            const item ={
+            const item = {
                 title: e.topicName,
                 // subtitle: e.shortCourseDescription,
                 image_url: e.course.courseImageLink,
@@ -426,8 +426,8 @@ let dataSendLesson = async (topicId) => {
         const result = arr.map(e => {
             const item ={
                 title: e.lessonName,
-                // subtitle: e.lessonDescription,
-                // image_url: e.videoLink
+                subtitle: e.lessonDescription,
+                image_url: e.videoLink
             }
             return item;
         })
