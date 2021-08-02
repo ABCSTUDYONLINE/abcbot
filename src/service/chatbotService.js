@@ -275,23 +275,24 @@ let dataSubCategory = async (category) => {
         // console.log(res.data.list);
         const datas = res.data.list;
         // console.log(datas)
-        let result = datas.map(e=>{
+        let result = [];
+        for(let i=0; i<datas.length; i++) {
             if(e.levelCategory === category){
                 const item ={
-                        title: e.categoryName,
-                        subtitle: `Các khoá học về ${e.categoryName}`,
+                        title: datas[i].categoryName,
+                        subtitle: `Các khoá học về ${datas[i].categoryName}`,
                         // "image_url": IMAGE_WEB_JS,
                         buttons:[
                             {
                                 type: "postback",
                                 title: "Xem chi tiết",
-                                payload: `COURSES_DETAIL_${e.id}`,
+                                payload: `COURSES_DETAIL_${datas[i].id}`,
                             }
                         ]
                 };
-                return item;
+                result.push(item);
             }
-        })
+        }
         return result;
 
 
