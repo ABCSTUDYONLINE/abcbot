@@ -7,19 +7,17 @@ import {getCourses,findCourses} from '../utils/courseApi';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 const IMAGE_GET_STARTED = 'https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/giphy.gif';
-const IMAGE_WEB_JS = 'http://bit.ly/bot_javascript';
+const IMAGE_SUB_CATEGORY = 'https://bit.ly/subcategory';
+
+
 const IMAGE_WEB_REACTJS = 'http://bit.ly/bot_reactjs';
 const IMAGE_WEB_NODEJS = 'http://bit.ly/bot_nodejs';
-/* const IMAGE_WEB_PHP = 'http://bit.ly/bot-php';
-const IMAGE_WEB_VUEJS = 'http://bit.ly/bot_vuejs';
-const IMAGE_WEB_ANGULAR = 'http://bit.ly/bot_angular'; */
+
 
 const IMAGE_MOBILE_ANDROID = 'http://bit.ly/bot_android';
 const IMAGE_MOBILE_REACTNATIVE = 'http://bit.ly/bot_reactnative';
 const IMAGE_MOBILE_IOS = 'http://bit.ly/bot-ios-1';
-/* const IMAGE_MOBILE_FLUTTER = 'http://bit.ly/bot_flutter';
-const IMAGE_MOBILE_KOTLIN = 'http://bit.ly/bot_kotlin';
-const IMAGE_MOBILE_SWIFT = 'http://bit.ly/bot_swift'; */
+
 
 
 let callSendAPI = async (sender_psid, response) => {
@@ -179,15 +177,11 @@ let getStartedTemplate = () => {
     return response;
 }
 
-
 let handleSendCatalog = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-
             let response1 = await getMainMenuTemplate();
             await callSendAPI(sender_psid, response1);
-
-
             resolve('done');
         } catch (e) {
             reject(e);
@@ -200,7 +194,6 @@ function Catalog(arr) {
     for(let i = 0; i < newArr.length-1; i++) {
         for(let j = 1; j < newArr.length; j++) {
             if(newArr[j].levelCategory === newArr[i].levelCategory)
-                // console.log(j,datas[j]);
                 newArr.splice(j,1);
         }
     }
@@ -220,12 +213,8 @@ function toUpper(str) {
 let dataCategory = async () => {
     try {
         const res = await getCategories();
-        // console.log(res.data.list);
         const datas = res.data.list;
-        // console.log(datas)
-
         const catalog = Catalog(datas);
-        // console.log(catalog);
         const result = catalog.map( (e) => {
             const item = {
                 content_type: 'text',
@@ -242,17 +231,10 @@ let dataCategory = async () => {
 }
 
 let getMainMenuTemplate = async () => {
-
     const result1 = await dataCategory();
-
-    // Arr = [...result1]
-    // console.log("----------");
-    // console.log(result1);
-    const result2 = [...result1]
-    // console.log(result2);
     let response = {
         text: 'Vui lòng chọn danh mục khóa học?',
-        quick_replies: result2,
+        quick_replies: result1,
     };
     return response;
 }
@@ -272,16 +254,14 @@ let handleSendSubCategory = (sender_psid,category) => {
 let dataSubCategory = async (category) => {
     try {
         const res = await getCategories();
-        // console.log(res.data.list);
         const datas = res.data.list;
-        // console.log(datas)
         let result = [];
         for(let i=0; i<datas.length; i++) {
             if(datas[i].levelCategory === category){
                 const item ={
                         title: datas[i].categoryName,
                         subtitle: `Các khoá học về ${datas[i].categoryName}`,
-                        // "image_url": IMAGE_WEB_JS,
+                        image_url: IMAGE_SUB_CATEGORY,
                         buttons:[
                             {
                                 type: "postback",
@@ -304,11 +284,6 @@ let dataSubCategory = async (category) => {
 let getSubCategory = async (category) => {
 
     const result1 = await dataSubCategory(category)
-    console.log("AAAAAAAA");
-    console.log(result1);
-    console.log("//////");
-    // const result = [...result1]
-    
     let response = {
         "attachment": {
             "type": "template",
