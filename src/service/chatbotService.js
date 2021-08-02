@@ -258,7 +258,7 @@ let dataSubCategory = async (category) => {
         const res = await getCategories();
         const datas = res.data.list;
         let arr = datas.filter(item =>{
-            return item.levelCategory === category;
+            return item.levelCategory === category; //web
         })
         let result = arr.map(e => {
             const item ={
@@ -270,6 +270,7 @@ let dataSubCategory = async (category) => {
                         type: "postback",
                         title: "Xem chi tiết",
                         payload: `COURSES_DETAIL_${e.id}`,
+                        //e.id = e1077695-018d-4bc5-82c8-1a4db0a6d977
                     }
                 ]
             };
@@ -312,7 +313,7 @@ let dataSendCourses = async (courseId) => {
         const res = await getCourses();
         const datas = res.data.list;
         let arr = datas.filter(item => {
-            return item.category.id === courseId;
+            return item.category.id === courseId;//e1077695-018d-4bc5-82c8-1a4db0a6d977
         })
         const result = arr.map(e => {
             const item ={
@@ -323,7 +324,8 @@ let dataSendCourses = async (courseId) => {
                     {
                         type: "postback",
                         title: "Xem chi tiết",
-                        payload: `TOPICS_DETAIL_${e.course.id}`,
+                        payload: `TOPICS_DETAIL_${e.id}`,
+                        //8ecb41e5-39b0-48e3-897c-7042303a6217
                     }
                 ]
             }
@@ -368,7 +370,7 @@ let dataSendTopic = async (courseId) => {
     const data = await getTopics(courseId);
     const datas= data.data.list;
         let arr = datas.filter(item =>{
-            return item.course.id === courseId;
+            return item.course.id === courseId;//8ecb41e5-39b0-48e3-897c-7042303a6217
         })
         const result = arr.map(e => {
             const item ={
@@ -380,6 +382,7 @@ let dataSendTopic = async (courseId) => {
                         type: "postback",
                         title: "Xem chi tiết",
                         payload: `LESSONS_DETAIL_${e.id}`,
+                        //0b41ee69-1b46-471a-bd7c-746c8a50b785
                     }
                 ]
             }
