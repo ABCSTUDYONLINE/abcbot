@@ -505,15 +505,15 @@ let getSendLesson = async (topicId) => {
 }
 
 let handleBackSubCategory = async (sender_psid) => {
-    await handleSendCatalog(sender_psid);
+    await handleSendSubCategory(sender_psid,category);
 }
 
 let handleBackCourse = async (sender_psid) => {
-    await handleSendCourses(sender_psid);
+    await handleSendCourses(sender_psid,courseId);
 }
 
 let handleBackTopic = async (sender_psid) => {
-    await handleSendTopic(sender_psid);
+    await handleSendTopic(sender_psid,courseId);
 }
 
 
