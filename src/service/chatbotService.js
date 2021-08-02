@@ -277,7 +277,7 @@ let dataSubCategory = async (category) => {
         // console.log(datas)
         let result = [];
         for(let i=0; i<datas.length; i++) {
-            if(e.levelCategory === category){
+            if(datas[i].levelCategory === category){
                 const item ={
                         title: datas[i].categoryName,
                         subtitle: `Các khoá học về ${datas[i].categoryName}`,
