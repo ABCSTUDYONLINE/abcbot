@@ -134,13 +134,16 @@ async function handleMessage(sender_psid, received_message) {
 
 // Handles messaging_postbacks events
 async function handlePostback(sender_psid, received_postback) {
-    // const res = await getCategories(1,7);
-    // const datas = res.data.list;
-    let response;
-
+    
     // Get the payload for the postback
     let payload = received_postback.payload;
 
+    if(payload.includes('COURSES_DETAIL_')){
+        const coursesId = payload.substring(15)
+        await chatbotService.handleSendCourses(sender_psid, coursesId)
+        return;
+    }
+    let response;
     // Set the response based on the postback payload
     switch (payload) {
         // case 'yes':

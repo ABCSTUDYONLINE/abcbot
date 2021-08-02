@@ -19,29 +19,29 @@ const initWebRoutes = (app) => {
         // const data = await getCourses();
         // return res.json(data.data.list);
         const datas= data.data.list;
-        const arr = "CATEGORY_web";
+        const arr = "CATEGORY_mobile";
         const arr1= arr.substring(9);
         console.log(arr1);
-        let result = datas.map(e=>{
-            if(e.levelCategory === arr1){
-                const item ={
-                        "title": e.categoryName,
-                        "subtitle": `Các khoá học về ${e.categoryName}`,
-                        // "image_url": IMAGE_WEB_JS,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Xem chi tiết",
-                                "payload": `COURSES_DETAIL_${e.id}`,
-                            },
-
-                        ],
-                };
-                return item;
+        let result = datas.filter(item =>{
+            return item.levelCategory === arr1;
+        })
+        const arr2 = result.map(e => {
+            const item ={
+                title: e.categoryName,
+                subtitle: `Các khoá học về ${e.categoryName}`,
+                // image_url: IMAGE_SUB_CATEGORY,
+                buttons:[
+                    {
+                        type: "postback",
+                        title: "Xem chi tiết",
+                        payload: `COURSES_DETAIL_${e.id}`,
+                    }
+                ]
             }
+            return item;
         })
         // return result;
-        console.log(datas);
+        console.log(arr2);
         console.log("////");
         console.log(result);
     })

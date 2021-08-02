@@ -255,24 +255,42 @@ let dataSubCategory = async (category) => {
     try {
         const res = await getCategories();
         const datas = res.data.list;
-        let result = [];
-        for(let i=0; i<datas.length; i++) {
-            if(datas[i].levelCategory === category){
-                const item ={
-                        title: datas[i].categoryName,
-                        subtitle: `Các khoá học về ${datas[i].categoryName}`,
-                        image_url: IMAGE_SUB_CATEGORY,
-                        buttons:[
-                            {
-                                type: "postback",
-                                title: "Xem chi tiết",
-                                payload: `COURSES_DETAIL_${datas[i].id}`,
-                            }
-                        ]
-                };
-                result.push(item);
-            }
-        }
+        // let result = [];
+        const arr = datas.fitler(item => {
+            return item.levelCategory === category;
+        })
+        const result = arr.map(e => {
+            const item ={
+                title: e.categoryName,
+                subtitle: `Các khoá học về ${e.categoryName}`,
+                image_url: IMAGE_SUB_CATEGORY,
+                buttons:[
+                    {
+                        type: "postback",
+                        title: "Xem chi tiết",
+                        payload: `COURSES_DETAIL_${e.id}`,
+                    }
+                ]
+            };
+            return item;
+        })
+        // for(let i=0; i<datas.length; i++) {
+        //     if(datas[i].levelCategory === category){
+        //         const item ={
+        //                 title: datas[i].categoryName,
+        //                 subtitle: `Các khoá học về ${datas[i].categoryName}`,
+        //                 image_url: IMAGE_SUB_CATEGORY,
+        //                 buttons:[
+        //                     {
+        //                         type: "postback",
+        //                         title: "Xem chi tiết",
+        //                         payload: `COURSES_DETAIL_${datas[i].id}`,
+        //                     }
+        //                 ]
+        //         };
+        //         result.push(item);
+        //     }
+        // }
         return result;
 
 
@@ -293,6 +311,37 @@ let getSubCategory = async (category) => {
             }
         }
     };
+    return response;
+}
+
+let handleSendCourses = (sender_psid, coursesId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = await getSendCourses(coursesId);
+            await callSendAPI(sender_psid, response1);
+            resolve('done');
+        } catch (error) {
+            reject(e);  
+        }
+    })
+}
+let dataSendCourses = async (coursesId) => {
+    try {
+        const res = await getCourses();
+        const datas = res.data.list;
+        let result = [];
+
+    } catch (error) {
+        
+    }
+}
+
+
+let getSendCourses = async (coursesId) => {
+
+    let response = {
+
+    }
     return response;
 }
 
@@ -1050,6 +1099,7 @@ module.exports = {
     handleGetStarted: handleGetStarted,
     handleSendCatalog: handleSendCatalog,
     handleSendSubCategory: handleSendSubCategory,
+    handleSendCourses:handleSendCourses,
     handleSendCatWeb: handleSendCatWeb,
     handleSendCatMobile: handleSendCatMobile,
     handleBackCatalog: handleBackCatalog,
