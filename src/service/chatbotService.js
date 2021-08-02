@@ -427,15 +427,7 @@ let dataSendLesson = async (topicId) => {
             const item ={
                 title: e.lessonName,
                 subtitle: e.lessonDescription,
-                image_url: e.videoLink,
-                buttons:[
-                    {
-                        type: "postback",
-                        title: "Xem chi tiết",
-                        payload: `VIEW_LESSONS_DETAIL_${e.id}`,
-                        
-                    }
-                ]
+                image_url: e.videoLink
             }
             return item;
         })

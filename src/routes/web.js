@@ -20,31 +20,25 @@ const initWebRoutes = (app) => {
         // const data = await getCategories();
         // const data = await getCourses();
         
-        // const data = await getLessons(topicId);
+        
         // return res.json(data.data.list);
         
-        const payload = "TOPICS_DETAIL_8ecb41e5-39b0-48e3-897c-7042303a6217";
-        const courseId= payload.substring(14);
-        console.log(courseId);
-        const data = await getTopics(courseId);
+        const topicId = "0b41ee69-1b46-471a-bd7c-746c8a50b785";
+        // const courseId= payload.substring(14);
+        // console.log(courseId);
+        // const data = await getTopics(courseId);
+        const data = await getLessons(topicId);
         const datas= data.data.list;
         let result = datas.filter(item =>{
-            return item.course.id === courseId;
+            return item.topic.id === topicId;
         })
         console.log("////");
         console.log(result);
         const arr2 = result.map(e => {
             const item ={
-                title: e.topicName,
-                // subtitle: e.shortCourseDescription,
-                image_url: e.course.courseImageLink,
-                buttons:[
-                    {
-                        type: "postback",
-                        title: "Xem chi tiết",
-                        payload: `LESSONS_DETAIL_${e.id}`,
-                    }
-                ]
+                title: e.lessonName,
+                subtitle: e.lessonDescription,
+                image_url: e.videoLink
             }
             return item;
         })
