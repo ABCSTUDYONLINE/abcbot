@@ -85,12 +85,11 @@ async function handleMessage(sender_psid, received_message) {
   // Checks if the message contains text
   if (received_message.text) {
     //feature search course with name
-    let name;
-    if (name == received_message.text) {
+    let name = received_message.text;
+    if (name) {
       await chatbotService.handleSearchCourse(sender_psid, name);
       return;
-    }
-    if (name !== received_message.text) {
+    } else {
       await chatbotService.handleSearchNotFound(sender_psid);
       await chatbotService.handleGetStarted(sender_psid);
       return;
