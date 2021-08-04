@@ -95,12 +95,19 @@ async function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
         // Create the payload for a basic text message
         // will be added to the body of our request to the Send API
-        let name = received_message.text;
-        await chatbotService.handleSearchCourse(sender_psid,name);
-        return;
+        let name;
+        if(name == received_message.text) {
+            await chatbotService.handleSearchCourse(sender_psid,name);
+            return;
+        }
+        if(name !== received_message.text){
+            await chatbotService.handleSearchNotFound(sender_psid);
+            await chatbotService.handleGetStarted(sender_psid);
+            return;
+        }
+        
     }
     
-
     // Send the response message
     callSendAPI(sender_psid, response);
 }
@@ -129,14 +136,6 @@ async function handlePostback(sender_psid, received_postback) {
     let response;
     // Set the response based on the postback payload
     switch (payload) {
-        // case 'yes':
-        //     response = { "text": "Thanks!" }
-        //     break;
-
-        // case 'no':
-        //     response = { "text": "Oops, try sending another image." }
-        //     break;
-
         case 'BOT_RESTART':
         case 'GET_STARTED':
             await chatbotService.handleGetStarted(sender_psid);

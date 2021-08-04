@@ -184,6 +184,20 @@ let handleSendText = (sender_psid) => {
     })
 }
 
+let handleSearchNotFound = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = { "text": "Khoá học không tồn tại. Vui lòng thử với khóa học khác." }
+
+            //send text message
+            await callSendAPI(sender_psid, response1);
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 let handleSendCatalog = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -509,4 +523,5 @@ module.exports = {
     handleSendLesson:handleSendLesson,
     handleSearchCourse:handleSearchCourse,
     handleSendText:handleSendText,
+    handleSearchNotFound:handleSearchNotFound,
 }
