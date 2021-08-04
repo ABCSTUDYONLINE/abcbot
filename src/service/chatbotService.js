@@ -223,26 +223,21 @@ let handleSendCatalog = (sender_psid) => {
   });
 };
 
-// function Catalog(arr) {
-//     for(let i = 0; i < arr.length-1; i++) {
-//         for(let j = 1; j < arr.length; j++) {
-//             if(arr[j].levelCategory === arr[i].levelCategory)
-//             arr.splice(j,1);
-//         }
-//     }
-//     return arr
-// }
-function Catalog(arr) {
-  var newArr = [];
-  for (var i = 0; i < arr.length; i++) {
-    if (newArr.indexOf(arr[i].levelCategory) === -1) {
-      console.log("________");
-      console.log(arr[i]);
-      newArr.push(arr[i]);
+function Catalog(datas) {
+  let data1 = [];
+  for (let i = 0; i < datas.length; i++) {
+    data1[i] = datas[i].levelCategory;
+  }
+
+  let newArr = [];
+  for (var i = 0; i < data1.length; i++) {
+    if (newArr.indexOf(data1[i]) === -1) {
+      newArr.push(data1[i]);
     }
   }
   return newArr;
 }
+
 function toUpper(str) {
   return str
     .toLowerCase()
