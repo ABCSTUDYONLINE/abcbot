@@ -234,7 +234,11 @@ let dataCategory = async () => {
     try {
         const res = await getCategories();
         const datas = res.data.list;
-        const catalog = Catalog(datas);
+        let data1 = [];
+        for(let i = 0; i < datas.length; i++) {
+            data1[i] = datas[i].levelCategory;
+        }
+        const catalog = Catalog(data1);
         const result = catalog.map( (e) => {
             const item = {
                 content_type: 'text',
