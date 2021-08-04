@@ -1,8 +1,6 @@
 require('dotenv').config();
 import request from "request";
 import chatbotService from "../service/chatbotService";
-// import {getCategories} from '../utils/categoryApi';
-// import {getCourses,findCourses} from '../utils/courseApi';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
@@ -93,8 +91,7 @@ async function handleMessage(sender_psid, received_message) {
     }    
     // Checks if the message contains text
     if (received_message.text) {
-        // Create the payload for a basic text message
-        // will be added to the body of our request to the Send API
+        //feature search course with name
         let name;
         if(name == received_message.text) {
             await chatbotService.handleSearchCourse(sender_psid,name);
