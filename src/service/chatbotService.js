@@ -10,7 +10,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const IMAGE_GET_STARTED = 'https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/giphy.gif';
 const IMAGE_SUB_CATEGORY = 'https://bit.ly/subcategory';
 const IMAGE_LESSON = 'https://bit.ly/imagelesson';
-const IMAGE_OTHER = 'https://bit.ly/backbot';
+const IMAGE_BACK = 'https://bit.ly/backbot';
 
 
 let callSendAPI = async (sender_psid, response) => {
@@ -188,6 +188,7 @@ let handleSearchNotFound = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response1 = { "text": "Khoá học không tồn tại. Vui lòng thử với khóa học khác." }
+
             //send text message
             await callSendAPI(sender_psid, response1);
             resolve('done');
@@ -210,15 +211,14 @@ let handleSendCatalog = (sender_psid) => {
 }
 
 function Catalog(arr) {
-    var newArr = [...arr];
-    for(let i = 0; i < newArr.length-1; i++) {
-        for(let j = 1; j < newArr.length; j++) {
-            if(newArr[j].levelCategory === newArr[i].levelCategory)
-                newArr.splice(j,1);
-        }
+    var newArr = []
+    for (var i = 0; i < arr.length; i++) {
+      if (newArr.indexOf(arr[i]) === -1) {
+        newArr.push(arr[i])
+      }
     }
-    return newArr
-}
+    return newArr;
+  }
 function toUpper(str) {
     return str
         .toLowerCase()
@@ -276,7 +276,7 @@ let dataSubCategory = async (category) => {
         const res = await getCategories();
         const datas = res.data.list;
         let arr = datas.filter(item =>{
-            return item.levelCategory === category;
+            return item.levelCategory === category; //web
         })
         let result = arr.map(e => {
             const item ={
@@ -288,6 +288,7 @@ let dataSubCategory = async (category) => {
                         type: "postback",
                         title: "Xem chi tiết",
                         payload: `COURSES_DETAIL_${e.id}`,
+                        //e.id = e1077695-018d-4bc5-82c8-1a4db0a6d977
                     }
                 ]
             };
@@ -330,7 +331,7 @@ let dataSendCourses = async (courseId) => {
         const res = await getCourses();
         const datas = res.data.list;
         let arr = datas.filter(item => {
-            return item.category.id === courseId;
+            return item.category.id === courseId;//e1077695-018d-4bc5-82c8-1a4db0a6d977
         })
         const result = arr.map(e => {
             const item ={
@@ -342,6 +343,7 @@ let dataSendCourses = async (courseId) => {
                         type: "postback",
                         title: "Xem chi tiết",
                         payload: `TOPICS_DETAIL_${e.id}`,
+                        //8ecb41e5-39b0-48e3-897c-7042303a6217
                     }
                 ]
             }
@@ -353,6 +355,7 @@ let dataSendCourses = async (courseId) => {
         
     }
 }
+
 
 let getSendCourses = async (courseId) => {
 
@@ -385,17 +388,19 @@ let dataSendTopic = async (courseId) => {
     const data = await getTopics(courseId);
     const datas= data.data.list;
         let arr = datas.filter(item =>{
-            return item.course.id === courseId;
+            return item.course.id === courseId;//8ecb41e5-39b0-48e3-897c-7042303a6217
         })
         const result = arr.map(e => {
             const item = {
                 title: e.topicName,
+                // subtitle: e.shortCourseDescription,
                 image_url: e.course.courseImageLink,
                 buttons:[
                     {
                         type: "postback",
                         title: "Xem chi tiết",
                         payload: `LESSONS_DETAIL_${e.id}`,
+                        //0b41ee69-1b46-471a-bd7c-746c8a50b785
                     }
                 ]
             }
@@ -434,7 +439,7 @@ let dataSendLesson = async (topicId) => {
     const data = await getLessons(topicId);
     const datas= data.data.list;
         let arr = datas.filter(item =>{
-            return item.topic.id === topicId;
+            return item.topic.id === topicId;//0b41ee69-1b46-471a-bd7c-746c8a50b785
         })
         const result = arr.map(e => {
             const item ={
@@ -451,16 +456,18 @@ let getSendLesson = async (topicId) => {
     let result2 = [...result,...[
         {
             "title": "Website",
-            "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi.",
-            "image_url": IMAGE_OTHER,
+            "subtitle": "Vui lòng truy cập đến website để biết thêm nhiều thông tin và ưu đãi",
+            "image_url": IMAGE_GET_STARTED,
             "buttons": [
                 {
                     "type": "web_url",
-                    "title": "Truy cập",
-                    "url": "https://abcstudyonline.netlify.app/",
+                    "title": "truy cập",
+                    "url": "https://abcstudyonlinefrontend.herokuapp.com/",
                     "webview_height_ratio": "full"
-                }
-            ]
+                },
+                
+
+            ],
         }
     ]]
     let response = {
@@ -468,7 +475,7 @@ let getSendLesson = async (topicId) => {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": result2,
+                "elements": result,
             }
         }
     }
@@ -500,6 +507,7 @@ let dataSearchCourseForName = async (name) => {
                     type: "postback",
                     title: "Xem chi tiết",
                     payload: `TOPICS_DETAIL_${e.id}`,
+                    //8ecb41e5-39b0-48e3-897c-7042303a6217
                 }
             ]
         }
