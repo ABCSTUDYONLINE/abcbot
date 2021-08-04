@@ -470,6 +470,12 @@ let handleSearchCourseForName = (sender_psid, name) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response1 = await getSendCourseForName(name);
+      const { attachment } = response1;
+      const { payload } = attachment;
+      if ((payload.elements = [])) {
+        await handleSearchNotFound(sender_psid);
+        await handleGetStarted(sender_psid);
+      }
       await callSendAPI(sender_psid, response1);
       resolve("done");
     } catch (e) {
