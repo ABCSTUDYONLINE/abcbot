@@ -89,7 +89,8 @@ async function handleMessage(sender_psid, received_message) {
     if (name) {
       await chatbotService.handleSearchCourse(sender_psid, name);
       return;
-    } else {
+    }
+    if (!name) {
       await chatbotService.handleSearchNotFound(sender_psid);
       await chatbotService.handleGetStarted(sender_psid);
       return;
