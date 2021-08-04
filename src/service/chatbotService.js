@@ -472,9 +472,10 @@ let handleSearchCourseForName = (sender_psid, name) => {
       let response1 = await getSendCourseForName(name);
       const { attachment } = response1;
       const { payload } = attachment;
-      if ((payload.elements = [])) {
+      if (payload.elements.length == 0) {
         await handleSearchNotFound(sender_psid);
         await handleGetStarted(sender_psid);
+        return;
       }
       await callSendAPI(sender_psid, response1);
       resolve("done");
