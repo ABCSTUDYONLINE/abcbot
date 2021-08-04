@@ -470,10 +470,7 @@ let handleSearchCourseForName = (sender_psid, name) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response1 = await getSendCourseForName(name);
-      if ((response1 = [])) {
-        await handleSearchNotFound(sender_psid);
-        await handleGetStarted(sender_psid);
-      } else await callSendAPI(sender_psid, response1);
+      await callSendAPI(sender_psid, response1);
       resolve("done");
     } catch (e) {
       reject(e);
@@ -514,8 +511,8 @@ let getSendCourseForName = async (name) => {
       },
     },
   };
-  console.log("________________________________");
-  console.log(response);
+  //   console.log("________________________________");
+  //   console.log(response);
   return response;
 };
 
