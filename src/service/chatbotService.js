@@ -478,7 +478,7 @@ let getSendLesson = async (topicId) => {
         buttons: [
           {
             type: "web_url",
-            title: "truy cập",
+            title: "Truy cập",
             url: "https://abcstudyonlinefrontend.herokuapp.com/",
             webview_height_ratio: "full",
           },
@@ -491,7 +491,7 @@ let getSendLesson = async (topicId) => {
       type: "template",
       payload: {
         template_type: "generic",
-        elements: result,
+        elements: result2,
       },
     },
   };
