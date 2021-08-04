@@ -37,6 +37,8 @@ const initWebRoutes = (app) => {
             }
           }
         console.log(data2);
+
+    
         
         
         

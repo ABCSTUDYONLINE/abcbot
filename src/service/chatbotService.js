@@ -211,14 +211,24 @@ let handleSendCatalog = (sender_psid) => {
 }
 
 function Catalog(arr) {
-    var newArr = []
-    for (var i = 0; i < arr.length; i++) {
-      if (newArr.indexOf(arr[i]) === -1) {
-        newArr.push(arr[i])
-      }
+    var newArr = [...arr];
+    for(let i = 0; i < newArr.length-1; i++) {
+        for(let j = 1; j < newArr.length; j++) {
+            if(newArr[j].levelCategory === newArr[i].levelCategory)
+                newArr.splice(j,1);
+        }
     }
-    return newArr;
-  }
+    return newArr
+}
+// function Catalog(arr) {
+//     var newArr = []
+//     for (var i = 0; i < arr.length; i++) {
+//       if (newArr.indexOf(arr[i]) === -1) {
+//         newArr.push(arr[i])
+//       }
+//     }
+//     return newArr
+//   }
 function toUpper(str) {
     return str
         .toLowerCase()
@@ -234,11 +244,7 @@ let dataCategory = async () => {
     try {
         const res = await getCategories();
         const datas = res.data.list;
-        let data1 = [];
-        for(let i = 0; i < datas.length; i++) {
-            data1[i] = datas[i].levelCategory;
-        }
-        const catalog = Catalog(data1);
+        const catalog = Catalog(datas);
         const result = catalog.map( (e) => {
             const item = {
                 content_type: 'text',
