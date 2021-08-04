@@ -1,7 +1,7 @@
 import express from "express";
 import homeController from "../controllers/homeController";
 import {getCategories} from '../utils/categoryApi';
-import {getCourses} from '../utils/courseApi';
+import {getCourses,findCourses} from '../utils/courseApi';
 import {getTopics} from '../utils/topicApi';
 import {getLessons} from '../utils/lessonApi';
 
@@ -17,35 +17,45 @@ const initWebRoutes = (app) => {
     router.post('/webhook', homeController.postWebhook);
     router.get('/webhook', homeController.getWebhook);
     router.get('/test', async (req, res) => {
-        // const data = await getCategories();
-        // const data = await getCourses();
+        
+        const name = "java";
+        const data = await findCourses(name);
+        const datas = data.data.list;
+        // const data1 = datas[0].topics;
+        
+        console.log("DAY LA DATAS");
+        console.log(datas);
+        // console.log(data1);
+        // const arr = datas.map(e => {
+        //     const item = {
+        //         title: e.courseName,
+        //     }
+        //     return item;
+        // })
+        // console.log(datas);
+        // console.log("DAY LA LIST TOPICS");
+        // let data2=[];
+        
+        // for (let i = 0; i < datas.length; i++) {
+        //     console.log(datas[i].courseName);
+        //     data2 = datas[i].topics;
+
+        // }
+
+        // console.log(data2);
+        // console.log("DAY LA LIST LESSONS");
+        // let data3=[];
+        // let id_topic="8c56faf4-ad41-4f46-87ca-ef9a0be62953";
+        // for(let i = 0;i<data2.length; i++){
+        //     if(data2[i].id === id_topic) {
+        //         console.log(data2[i].topicName);
+        //         data3=data2[i].lessons
+        //     }
+            
+        // }
+        // console.log(data3);
         
         
-        // return res.json(data.data.list);
-        
-        const topicId = "0b41ee69-1b46-471a-bd7c-746c8a50b785";
-        const courseId = "8ecb41e5-39b0-48e3-897c-7042303a6217"
-        // const courseId= payload.substring(14);
-        // console.log(courseId);
-        // const data = await getTopics(courseId);
-        const data = await getLessons(topicId);
-        const datas= data.data.list;
-        let result = datas.filter(item =>{
-            return item.topic.id === topicId;
-        })
-        console.log("////");
-        console.log(result);
-        const arr2 = result.map(e => {
-            const item ={
-                title: e.lessonName,
-                subtitle: e.lessonDescription,
-                image_url: e.videoLink
-            }
-            return item;
-        })
-        // return result;
-        console.log("AAAAAA");
-        console.log(arr2);
         
     })
 

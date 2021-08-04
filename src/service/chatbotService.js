@@ -169,6 +169,20 @@ let getStartedTemplate = () => {
     };
     return response;
 }
+let handleSendText = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let username = await getUserName(sender_psid);
+            let response1 = { "text": `Xin chào ${username}!! Vui lòng nhập từ khóa để tìm kiếm.` }
+
+            //send text message
+            await callSendAPI(sender_psid, response1);
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
 
 let handleSendCatalog = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
@@ -438,6 +452,54 @@ let getSendLesson = async (topicId) => {
     return response;
 }
 
+let handleSearchCourse = (sender_psid, name) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response1 = await getSendCourseForName(name);
+            await callSendAPI(sender_psid, response1);
+            resolve('done');
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let dataSearchCourseForName = async (name) => {
+    const data = await findCourses(name);
+    const datas= data.data.list;
+    const result = datas.map(e => {
+        const item ={
+            title: `${e.courseName} - Fee: ${e.fee} $`,
+            subtitle: e.shortCourseDescription,
+            image_url: e.courseImageLink,
+            buttons:[
+                {
+                    type: "postback",
+                    title: "Xem chi tiết",
+                    payload: `TOPICS_DETAIL_${e.id}`,
+                    //8ecb41e5-39b0-48e3-897c-7042303a6217
+                }
+            ]
+        }
+        return item;
+    })
+    return result;
+}
+
+let getSendCourseForName = async (name) => {
+    let result = await dataSearchCourseForName(name)
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": result,
+            }
+        }
+    }
+    return response;
+}
+
 module.exports = {
     handleGetStarted: handleGetStarted,
     handleSendCatalog: handleSendCatalog,
@@ -445,4 +507,6 @@ module.exports = {
     handleSendCourses:handleSendCourses,
     handleSendTopic:handleSendTopic,
     handleSendLesson:handleSendLesson,
+    handleSearchCourse:handleSearchCourse,
+    handleSendText:handleSendText,
 }

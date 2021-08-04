@@ -93,40 +93,13 @@ async function handleMessage(sender_psid, received_message) {
     }    
     // Checks if the message contains text
     if (received_message.text) {
-        // Create the payload for a basic text message, which
+        // Create the payload for a basic text message
         // will be added to the body of our request to the Send API
-        response = {
-            "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
-        }
-    } else if (received_message.attachments) {
-        // Get the URL of the message attachment
-        let attachment_url = received_message.attachments[0].payload.url;
-        response = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Is this the right picture?",
-                        "subtitle": "Tap a button to answer.",
-                        "image_url": attachment_url,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Yes!",
-                                "payload": "yes",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "No!",
-                                "payload": "no",
-                            }
-                        ],
-                    }]
-                }
-            }
-        }
+        let name = received_message.text;
+        await chatbotService.handleSearchCourse(sender_psid,name);
+        return;
     }
+    
 
     // Send the response message
     callSendAPI(sender_psid, response);
@@ -156,13 +129,13 @@ async function handlePostback(sender_psid, received_postback) {
     let response;
     // Set the response based on the postback payload
     switch (payload) {
-        case 'yes':
-            response = { "text": "Thanks!" }
-            break;
+        // case 'yes':
+        //     response = { "text": "Thanks!" }
+        //     break;
 
-        case 'no':
-            response = { "text": "Oops, try sending another image." }
-            break;
+        // case 'no':
+        //     response = { "text": "Oops, try sending another image." }
+        //     break;
 
         case 'BOT_RESTART':
         case 'GET_STARTED':
@@ -172,18 +145,8 @@ async function handlePostback(sender_psid, received_postback) {
         case 'COURSE_CATALOG':
             await chatbotService.handleSendCatalog(sender_psid);
             break;
-        case 'BACK_CATALOG':
-            await chatbotService.handleBackCatalog(sender_psid);
-            break;
-
-        case 'BACK_SUB_CATEGORY':
-            await chatbotService.handleBackSubCategory(sender_psid);
-            break;
-        case 'BACK_COURSE':
-            await chatbotService.handleBackCourse(sender_psid);
-            break;
-        case 'BACK_TOPIC':
-            await chatbotService.handleBackTopic(sender_psid);
+        case 'COURSE_SEARCH':
+            await chatbotService.handleSendText(sender_psid);
             break;
         default:
             // code block
