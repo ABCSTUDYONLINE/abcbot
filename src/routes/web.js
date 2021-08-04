@@ -16,11 +16,15 @@ const initWebRoutes = (app) => {
   router.post("/webhook", homeController.postWebhook);
   router.get("/webhook", homeController.getWebhook);
   router.get("/test", async (req, res) => {
-    const name = "java";
+    const name = "ruby";
     const data = await findCourses(name);
-    const datas = data.data.list;
-
-    console.log(datas);
+    let datas = data.data.list;
+    if ((datas = [])) {
+      console.log("AAAAAA");
+    }
+    //  else {
+    //   console.log(datas);
+    // }
     // const data1 = datas[0].topics;
   });
 

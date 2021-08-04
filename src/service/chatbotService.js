@@ -178,38 +178,6 @@ let getStartedTemplate = () => {
   };
   return response;
 };
-let handleSendText = (sender_psid) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let username = await getUserName(sender_psid);
-      let response1 = {
-        text: `Xin chào ${username}!! Vui lòng nhập từ khóa để tìm kiếm.`,
-      };
-
-      //send text message
-      await callSendAPI(sender_psid, response1);
-      resolve("done");
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
-
-let handleSearchNotFound = (sender_psid) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let response1 = {
-        text: "Khoá học không tồn tại. Vui lòng thử với khóa học khác.",
-      };
-
-      //send text message
-      await callSendAPI(sender_psid, response1);
-      resolve("done");
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
 
 let handleSendCatalog = (sender_psid) => {
   return new Promise(async (resolve, reject) => {
@@ -502,7 +470,10 @@ let handleSearchCourseForName = (sender_psid, name) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response1 = await getSendCourseForName(name);
-      await callSendAPI(sender_psid, response1);
+      if ((response1 = [])) {
+        await handleSearchNotFound(sender_psid);
+        await handleGetStarted(sender_psid);
+      } else await callSendAPI(sender_psid, response1);
       resolve("done");
     } catch (e) {
       reject(e);
@@ -543,7 +514,42 @@ let getSendCourseForName = async (name) => {
       },
     },
   };
+  console.log("________________________________");
+  console.log(response);
   return response;
+};
+
+let handleSendText = (sender_psid) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let username = await getUserName(sender_psid);
+      let response1 = {
+        text: `Xin chào ${username}!! Vui lòng nhập từ khóa để tìm kiếm.`,
+      };
+
+      //send text message
+      await callSendAPI(sender_psid, response1);
+      resolve("done");
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let handleSearchNotFound = (sender_psid) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response1 = {
+        text: "Khoá học không tồn tại. Vui lòng thử với khóa học khác.",
+      };
+
+      //send text message
+      await callSendAPI(sender_psid, response1);
+      resolve("done");
+    } catch (e) {
+      reject(e);
+    }
+  });
 };
 
 module.exports = {
