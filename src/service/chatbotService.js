@@ -235,6 +235,8 @@ function Catalog(datas) {
       newArr.push(data1[i]);
     }
   }
+  console.log("______________");
+  console.log(newArr);
   return newArr;
 }
 
