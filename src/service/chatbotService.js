@@ -210,25 +210,24 @@ let handleSendCatalog = (sender_psid) => {
     })
 }
 
+// function Catalog(arr) {
+//     for(let i = 0; i < arr.length-1; i++) {
+//         for(let j = 1; j < arr.length; j++) {
+//             if(arr[j].levelCategory === arr[i].levelCategory)
+//             arr.splice(j,1);
+//         }
+//     }
+//     return arr
+// }
 function Catalog(arr) {
-    var newArr = [...arr];
-    for(let i = 0; i < newArr.length-1; i++) {
-        for(let j = 1; j < newArr.length; j++) {
-            if(newArr[j].levelCategory === newArr[i].levelCategory)
-                newArr.splice(j,1);
-        }
+    var newArr = []
+    for (var i = 0; i < arr.length; i++) {
+      if (newArr.indexOf(arr[i].levelCategory) === -1) {
+        newArr.push(arr[i])
+      }
     }
     return newArr
-}
-// function Catalog(arr) {
-//     var newArr = []
-//     for (var i = 0; i < arr.length; i++) {
-//       if (newArr.indexOf(arr[i]) === -1) {
-//         newArr.push(arr[i])
-//       }
-//     }
-//     return newArr
-//   }
+  }
 function toUpper(str) {
     return str
         .toLowerCase()
