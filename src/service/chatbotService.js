@@ -498,7 +498,7 @@ let getSendLesson = async (topicId) => {
   return response;
 };
 
-let handleSearchCourse = (sender_psid, name) => {
+let handleSearchCourseForName = (sender_psid, name) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response1 = await getSendCourseForName(name);
@@ -553,7 +553,7 @@ module.exports = {
   handleSendCourses: handleSendCourses,
   handleSendTopic: handleSendTopic,
   handleSendLesson: handleSendLesson,
-  handleSearchCourse: handleSearchCourse,
+  handleSearchCourseForName: handleSearchCourseForName,
   handleSendText: handleSendText,
   handleSearchNotFound: handleSearchNotFound,
 };
