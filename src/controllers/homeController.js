@@ -69,7 +69,7 @@ async function handleMessage(sender_psid, received_message) {
   //check message quick reply
   if (received_message.quick_reply && received_message.quick_reply.payload) {
     if (received_message.quick_reply.payload === "COURSE_SEARCH") {
-      await chatbotService.handleSeachCourses(sender_psid);
+      await chatbotService.handleSendText(sender_psid);
       return;
     }
     if (received_message.quick_reply.payload === "COURSE_CATALOG") {
