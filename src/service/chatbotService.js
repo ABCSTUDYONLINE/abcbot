@@ -11,7 +11,6 @@ const IMAGE_GET_STARTED =
   "https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/giphy.gif";
 const IMAGE_SUB_CATEGORY = "https://bit.ly/subcategory";
 const IMAGE_LESSON = "https://bit.ly/imagelesson";
-const IMAGE_BACK = "https://bit.ly/backbot";
 
 let callSendAPI = async (sender_psid, response) => {
   return new Promise(async (resolve, reject) => {
@@ -105,33 +104,11 @@ let MarkMessage = (sender_psid) => {
   );
 };
 
-let getUserName = (sender_psid) => {
-  return new Promise((resolve, reject) => {
-    request(
-      {
-        uri: `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${PAGE_ACCESS_TOKEN}`,
-        method: "GET",
-      },
-      (err, res, body) => {
-        if (!err) {
-          body = JSON.parse(body);
-          let username = `${body.last_name} ${body.first_name} `;
-          resolve(username);
-        } else {
-          console.error("Unable to send message:" + err);
-          reject(err);
-        }
-      }
-    );
-  });
-};
-
 let handleGetStarted = (sender_psid) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let username = await getUserName(sender_psid);
       let response1 = {
-        text: `Xin chào mừng ${username} đến với ABCStudy Online`,
+        text: `Xin chào mừng bạn đến với ABCStudy Online`,
       };
       let response2 = await getSendGif();
       let response3 = await getStartedTemplate();
@@ -518,8 +495,6 @@ let getSendCourseForName = async (name) => {
       },
     },
   };
-  //   console.log("________________________________");
-  //   console.log(response);
   return response;
 };
 

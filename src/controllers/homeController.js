@@ -136,9 +136,6 @@ async function handlePostback(sender_psid, received_postback) {
         text: `oop! I don't know  response with Postback ${payload}`,
       };
   }
-
-  // Send the message to acknowledge the postback
-  //callSendAPI(sender_psid, response);
 }
 
 // Sends response messages via the Send API
