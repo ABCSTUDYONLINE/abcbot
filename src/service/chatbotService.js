@@ -11,6 +11,7 @@ const IMAGE_GET_STARTED =
   "https://media4.giphy.com/media/OK914NO5d8ey9sSNAQ/giphy.gif";
 const IMAGE_SUB_CATEGORY = "https://bit.ly/subcategory";
 const IMAGE_LESSON = "https://bit.ly/imagelesson";
+const IMAGE_BACK = "https://bit.ly/backbot";
 
 let callSendAPI = async (sender_psid, response) => {
   return new Promise(async (resolve, reject) => {
@@ -108,7 +109,7 @@ let handleGetStarted = (sender_psid) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response1 = {
-        text: `Xin chào mừng bạn đến với ABCStudy Online`,
+        text: `Chào mừng bạn đã đến với ABCStudy Online`,
       };
       let response2 = await getSendGif();
       let response3 = await getStartedTemplate();
