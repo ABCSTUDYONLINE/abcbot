@@ -502,9 +502,8 @@ let getSendCourseForName = async (name) => {
 let handleSendText = (sender_psid) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let username = await getUserName(sender_psid);
       let response1 = {
-        text: `Xin chào ${username}!! Vui lòng nhập từ khóa để tìm kiếm.`,
+        text: `Xin chào bạn!! Vui lòng nhập từ khóa để tìm kiếm.`,
       };
 
       //send text message
